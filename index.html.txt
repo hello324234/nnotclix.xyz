@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>nnotclix</title>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: white;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin-top: 80px;
+    }
+  </style>
+</head>
+<body>
+  <h1>nnotclix.xyz</h1>
+  <p>ER:LC Designer | Roblox Alter</p>
+  <p>Discord: @notclix</p>
+</body>
+</html>
