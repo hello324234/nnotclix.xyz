@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>nnotclix.xyz</title>
-  <!-- Link to the generated Tailwind CSS file -->
   <link rel="stylesheet" href="dist/output.css">
+  <link rel="icon" href="https://imgur.com/tunwvby.png" type="image/png"> <!-- Favicon -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
     body {
@@ -14,9 +14,9 @@
       margin: 0;
       padding: 0;
       font-family: 'Arial', sans-serif;
-      min-height: 250vh; /* Ensure scrolling for all sections */
+      min-height: 250vh;
       overflow-x: hidden;
-      padding-top: 80px; /* Prevent header overlap */
+      padding-top: 80px;
     }
     .header {
       position: fixed;
@@ -255,13 +255,10 @@
   </style>
 </head>
 <body>
-  <!-- Header -->
   <div class="header">
     <a href="#" class="logo">nnotclix.xyz</a>
     <a href="https://discord.com" target="_blank" class="contact-btn">Contact</a>
   </div>
-
-  <!-- Hero Section with Rotating Text -->
   <div class="hero relative">
     <h1><span id="rotating-text"></span></h1>
     <p>Bringing your community to the next level</p>
@@ -271,8 +268,6 @@
       <i class="fas fa-chevron-down"></i>
     </div>
   </div>
-
-  <!-- Servers Section -->
   <div class="servers">
     <h2>Our Communities</h2>
     <div class="server-cards">
@@ -283,8 +278,6 @@
       </div>
     </div>
   </div>
-
-  <!-- My Work Section -->
   <div class="my-work">
     <h2>About Me</h2>
     <div class="work-cards">
@@ -298,11 +291,7 @@
       </div>
     </div>
   </div>
-
-  <!-- Visitor Counter -->
   <div class="visitor-counter" id="visitor-counter">Visitors: 0</div>
-
-  <!-- JavaScript for Rotating Text, Mouse Interaction, and Visitor Counter -->
   <script>
     const texts = [
       "Want a Designer?",
@@ -313,33 +302,24 @@
     ];
     let currentIndex = 0;
     const rotatingText = document.getElementById("rotating-text");
-
     function rotateText() {
       rotatingText.textContent = texts[currentIndex];
       currentIndex = (currentIndex + 1) % texts.length;
     }
-
     setInterval(rotateText, 3000);
     rotateText();
-
-    // Visitor Counter
     const counter = document.getElementById("visitor-counter");
     let visitCount = localStorage.getItem("visitCount") ? parseInt(localStorage.getItem("visitCount")) : 0;
     const lastVisit = localStorage.getItem("lastVisit");
     const today = new Date().toDateString();
-
     if (!lastVisit || lastVisit !== today) {
       visitCount += 1;
       localStorage.setItem("visitCount", visitCount);
       localStorage.setItem("lastVisit", today);
     }
-
     counter.textContent = `Visitors: ${visitCount}`;
-
-    // Mouse movement particle effect
     const body = document.querySelector("body");
     let particles = [];
-
     body.addEventListener("mousemove", (e) => {
       const particle = document.createElement("div");
       particle.classList.add("particle");
@@ -347,12 +327,10 @@
       particle.style.top = e.clientY + "px";
       body.appendChild(particle);
       particles.push(particle);
-
       setTimeout(() => {
         particle.remove();
         particles = particles.filter(p => p !== particle);
       }, 1500);
-
       if (particles.length > 50) {
         const oldestParticle = particles.shift();
         oldestParticle.remove();
