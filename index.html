@@ -1,278 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alaska State Roleplay</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="global.css" />
-  <style id="sections-styles">
-    :root {
-      --primary-blue: #1d4ed8;
-      --dark-blue-overlay: rgba(0, 0, 0, 0.7);
-      --light-blue-link: #60a5fa;
-      --text-white: #ffffff;
-      --text-light: #f3f4f6;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nnotclix.xyz</title>
+  <link rel="stylesheet" href="dist/output.css">
+  <link rel="icon" href="https://imgur.com/tunwvby.png" type="image/png"> <!-- Favicon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(180deg, #0a0e1a, #1a2333);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      min-height: 250vh;
+      overflow-x: hidden;
+      padding-top: 80px;
     }
-
-    /* Header */
-    .site-header {
-      background-color: var(--primary-blue);
-      box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-      padding: 9px 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .header-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .brand-logo {
-      width: 40px;
-      height: 40px;
-    }
-
-    .brand-name {
-      color: var(--text-light);
-      font-size: 19.2px;
-      font-weight: 700;
-    }
-
-    .main-nav ul {
-      display: flex;
-      gap: 45px;
-    }
-
-    .main-nav a {
-      color: var(--text-light);
-      font-size: 17.6px;
-      font-weight: 500;
-      transition: opacity 0.2s ease;
-    }
-
-    .main-nav a:hover {
-      opacity: 0.8;
-    }
-
-    .btn-primary {
-      background-color: #2563eb;
-      color: white;
-      font-weight: 600;
-      padding: 10px 18px;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: background-color 0.2s ease;
-    }
-
-    .btn-primary:hover {
-      background-color: #1e40af;
-    }
-
-    /* Hero */
-    .hero-section {
-      position: relative;
-      z-index: 0;
-      background-image: url('images/0a996495cb78978b706da7c006bcd611afd823d4.png');
-      background-size: cover;
-      background-position: center;
-      padding: 129px 0;
-    }
-
-    .hero-section::before {
-      content: '';
-      position: absolute;
+    .header {
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
-      background-color: var(--dark-blue-overlay);
-      opacity: 0.8;
-      z-index: 1;
-    }
-
-    .hero-container {
-      position: relative;
-      z-index: 2;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.8);
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 40px;
-    }
-
-    .hero-content {
-      flex: 1 1 55%;
-      color: var(--text-white);
-    }
-
-    .hero-title {
-      font-size: 67.2px;
-      font-weight: 700;
-      line-height: 1.1;
-      margin: 0 0 5px 0;
-    }
-
-    .hero-subtitle {
-      font-size: 19.2px;
-      line-height: 1.5;
-      margin: 0 0 26px 0;
-      max-width: 530px;
-    }
-
-    .hero-actions {
-      display: flex;
       align-items: center;
-      gap: 20px;
+      z-index: 1000;
+      animation: slideInFromTop 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-
-    .hero-link {
-      color: var(--light-blue-link);
-      font-size: 17.6px;
-      font-weight: 600;
-      transition: opacity 0.2s ease;
+    .header a {
       text-decoration: none;
     }
-
-    .hero-link:hover {
-      opacity: 0.8;
+    .header .logo {
+      color: #9370db;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-transform: lowercase;
+      transition: all 0.4s ease;
     }
-
-    .hero-image-container {
-      flex: 1 1 45%;
+    .header .logo:hover {
+      color: #ba55d3;
+      transform: scale(1.1) rotate(5deg);
+    }
+    .header .contact-btn {
+      background: #6a0dad;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      color: #fff;
+      font-weight: bold;
+      transition: all 0.4s ease;
+    }
+    .header .contact-btn:hover {
+      background: #8a2be2;
+      transform: scale(1.1) translateY(-2px);
+    }
+    .hero {
+      height: 100vh;
       display: flex;
-      justify-content: flex-end;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
+      text-align: center;
+      animation: fadeInWithScale 1.5s ease-out;
     }
-
-    .hero-logo {
-      width: 100%;
-      max-width: 628px;
-      height: auto;
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      background: linear-gradient(45deg, #9370db, #ba55d3);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+      animation: pulseWithRotate 2s infinite;
     }
-
-    /* Responsive */
-    @media (max-width: 1200px) {
-      .main-nav {
-        display: none;
-      }
+    .hero p {
+      font-size: 1.2rem;
+      color: #d8bfd8;
+      margin-bottom: 1.5rem;
+      animation: slideInFromBottom 1.2s ease-out;
     }
-
-    @media (max-width: 1024px) {
-      .hero-container {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .hero-content {
-        flex-basis: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        order: 2;
-      }
-
-      .hero-image-container {
-        order: 1;
-        margin-bottom: 40px;
-      }
-
-      .hero-logo {
-        max-width: 400px;
-      }
+    .hero .contact-btn {
+      background: #6a0dad;
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      color: #fff;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.4s ease;
     }
-
-    @media (max-width: 768px) {
-      .hero-section {
-        padding: 80px 0;
-      }
-
-      .hero-title {
-        font-size: 48px;
-      }
-
-      .hero-subtitle {
-        font-size: 16px;
-      }
-
-      .hero-actions {
-        flex-direction: column;
-        gap: 15px;
-        width: 100%;
-      }
-
-      .hero-actions .btn {
-        width: 80%;
-      }
-
-      .hero-logo {
-        max-width: 300px;
-      }
-
-      .brand-name {
-        display: none;
-      }
-
-      .site-header .btn-primary {
-        width: 100%;
-      }
-
-      .header-container {
-        flex-direction: column;
-        gap: 15px;
-        padding: 15px 0;
-      }
+    .hero .contact-btn:hover {
+      transform: scale(1.15) translateY(-3px);
+      background: #8a2be2;
+      box-shadow: 0 5px 15px rgba(138, 43, 226, 0.5);
+    }
+    .scroll-down {
+      position: absolute;
+      bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: bounceWithFade 2.5s infinite;
+    }
+    .scroll-down span {
+      font-size: 0.9rem;
+      color: #d8bfd8;
+    }
+    .scroll-down i {
+      font-size: 1.5rem;
+      color: #d8bfd8;
+      margin-top: 0.5rem;
+    }
+    .servers, .my-work {
+      padding: 5rem 2rem;
+      text-align: center;
+      animation: slideUpWithFade 1.8s ease-out;
+    }
+    .servers h2, .my-work h2 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+      animation: scaleIn 1.5s ease-out;
+    }
+    .server-cards, .work-cards {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .server-card, .work-card {
+      background: rgba(31, 41, 55, 0.9);
+      padding: 2rem;
+      max-width: 400px;
+      border-radius: 15px;
+      transition: all 0.5s ease;
+      animation: popIn 1.6s ease-out;
+    }
+    .server-card {
+      position: relative;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      background: linear-gradient(145deg, rgba(31, 41, 55, 0.9), rgba(50, 60, 80, 0.9));
+      box-shadow: 0 10px 30px rgba(106, 13, 173, 0.3);
+    }
+    .server-card::before {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      right: -4px;
+      bottom: -4px;
+      background: linear-gradient(45deg, #6a0dad, #ba55d3);
+      border-radius: 17px;
+      z-index: -1;
+    }
+    .server-card:hover, .work-card:hover {
+      transform: translateY(-15px) rotateX(5deg);
+      box-shadow: 0 15px 30px rgba(106, 13, 173, 0.5);
+    }
+    .server-card h3, .work-card h3 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, #9370db, #ba55d3);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .server-card p, .work-card p {
+      font-size: 1rem;
+      color: #d3d3d3;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    .server-card a {
+      background: linear-gradient(45deg, #6a0dad, #8a2be2);
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.4s ease;
+      display: inline-block;
+    }
+    .server-card a:hover {
+      background: linear-gradient(45deg, #8a2be2, #ba55d3);
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+    }
+    .visitor-counter {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      color: #d8bfd8;
+      animation: fadeInWithSpin 1.2s ease-out;
+    }
+    .particle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: rgba(138, 43, 226, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: particleFade 1.5s ease-out;
+    }
+    @keyframes slideInFromTop {
+      0% { transform: translateY(-100%) scale(0.8); opacity: 0; }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+    @keyframes fadeInWithScale {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes pulseWithRotate {
+      0% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.1) rotate(2deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+    @keyframes slideInFromBottom {
+      0% { transform: translateY(50px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes bounceWithFade {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); opacity: 0.7; }
+      40% { transform: translateY(-15px); opacity: 1; }
+      60% { transform: translateY(-8px); opacity: 0.9; }
+    }
+    @keyframes slideUpWithFade {
+      0% { transform: translateY(50px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes scaleIn {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes popIn {
+      0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+      70% { transform: scale(1.2) rotate(5deg); opacity: 0.8; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+    @keyframes fadeInWithSpin {
+      0% { transform: rotate(-180deg); opacity: 0; }
+      100% { transform: rotate(0deg); opacity: 1; }
+    }
+    @keyframes particleFade {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(0); opacity: 0; }
     }
   </style>
-  <script src="global.js" defer></script>
 </head>
 <body>
-  <header id="header" class="site-header">
-    <div class="container header-container">
-      <a href="#" class="brand">
-        <img src="images/4f41ecbf4679492090b385389103d5710b3cc244.png" alt="Alaska State Roleplay Logo" class="brand-logo" />
-        <span class="brand-name">Alaska State Roleplay</span>
-      </a>
-      <nav class="main-nav">
-        <ul>
-          <li><a href="https://melonly.xyz/forms/7339398422958444544" target="_blank">Apply</a></li>
-          <li><a href="https://www.roblox.com/games/2534724415/ERLC?privateServerLinkCode=ASRPUSA" target="_blank">Quick Join</a></li>
-          <li><a href="https://melon.ly/form/7342603684171223040" target="_blank">Appeal</a></li>
-          <li><a href="https://www.roblox.com/communities/35731870/AltingERLC#!/about" target="_blank">Roblox Group</a></li>
-        </ul>
-      </nav>
-      <a href="https://discord.gg/alaska26" class="btn btn-primary" target="_blank">Discord Server</a>
+  <div class="header">
+    <a href="#" class="logo">nnotclix.xyz</a>
+    <a href="https://discord.com" target="_blank" class="contact-btn">Contact</a>
+  </div>
+  <div class="hero relative">
+    <h1><span id="rotating-text"></span></h1>
+    <p>Bringing your community to the next level</p>
+    <a href="https://discord.com" target="_blank" class="contact-btn">Contact +</a>
+    <div class="scroll-down">
+      <span>Scroll Down</span>
+      <i class="fas fa-chevron-down"></i>
     </div>
-  </header>
-
-  <section id="hero" class="hero-section">
-    <div class="container hero-container">
-      <div class="hero-content">
-        <h1 class="hero-title">
-          Alaska State<br />Roleplay (ASRP)
-        </h1>
-        <p class="hero-subtitle">
-          Alaska State Roleplay is a roleplay server based on the game ERLC, Roblox. We give our best effort, join now!
-        </p>
-        <div class="hero-actions">
-          <a href="https://discord.gg/alaska26" class="btn btn-primary" target="_blank">Discord Server</a>
-          <a href="https://www.roblox.com/games/2534724415/ERLC?privateServerLinkCode=ASRPUSA" class="hero-link" target="_blank">Quick Join ></a>
-        </div>
-      </div>
-      <div class="hero-image-container">
-        <img src="images/4f41ecbf4679492090b385389103d5710b3cc244.png" alt="Large Deer Logo" class="hero-logo" />
+  </div>
+  <div class="servers">
+    <h2>Our Communities</h2>
+    <div class="server-cards">
+      <div class="server-card">
+        <h3>Alaska State Roleplay</h3>
+        <p>A vibrant community with over 1,500 members and continuous growth.</p>
+        <a href="https://discord.gg/alaska26" target="_blank">Join Now</a>
       </div>
     </div>
-  </section>
+  </div>
+  <div class="my-work">
+    <h2>About Me</h2>
+    <div class="work-cards">
+      <div class="work-card">
+        <h3>ER:LC Graphic Designer</h3>
+        <p>Specializing in creating stunning visuals for Emergency Response: Liberty County to elevate your experience.</p>
+      </div>
+      <div class="work-card">
+        <h3>ER:LC Alter</h3>
+        <p>I can get your server full in minutes, bringing vibrant energy to your community.</p>
+      </div>
+    </div>
+  </div>
+  <div class="visitor-counter" id="visitor-counter">Visitors: 0</div>
+  <script>
+    const texts = [
+      "Want a Designer?",
+      "Want a Team Member?",
+      "Want an Alter?",
+      "Want a Community Manager?",
+      "Want a Moderator?"
+    ];
+    let currentIndex = 0;
+    const rotatingText = document.getElementById("rotating-text");
+    function rotateText() {
+      rotatingText.textContent = texts[currentIndex];
+      currentIndex = (currentIndex + 1) % texts.length;
+    }
+    setInterval(rotateText, 3000);
+    rotateText();
+    const counter = document.getElementById("visitor-counter");
+    let visitCount = localStorage.getItem("visitCount") ? parseInt(localStorage.getItem("visitCount")) : 0;
+    const lastVisit = localStorage.getItem("lastVisit");
+    const today = new Date().toDateString();
+    if (!lastVisit || lastVisit !== today) {
+      visitCount += 1;
+      localStorage.setItem("visitCount", visitCount);
+      localStorage.setItem("lastVisit", today);
+    }
+    counter.textContent = `Visitors: ${visitCount}`;
+    const body = document.querySelector("body");
+    let particles = [];
+    body.addEventListener("mousemove", (e) => {
+      const particle = document.createElement("div");
+      particle.classList.add("particle");
+      particle.style.left = e.clientX + "px";
+      particle.style.top = e.clientY + "px";
+      body.appendChild(particle);
+      particles.push(particle);
+      setTimeout(() => {
+        particle.remove();
+        particles = particles.filter(p => p !== particle);
+      }, 1500);
+      if (particles.length > 50) {
+        const oldestParticle = particles.shift();
+        oldestParticle.remove();
+      }
+    });
+  </script>
 </body>
 </html>
