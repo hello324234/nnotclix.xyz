@@ -19,7 +19,7 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #ba55d3;
+            background: #2baaf7;
             border-radius: 4px;
         }
 
@@ -35,7 +35,7 @@
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(
-                to top,
+                to bottom,
                 #083694f1 10%,
                 #8eaff5 25%,
                 #0c121f 100%
@@ -46,7 +46,7 @@
         }
         
         .hero-text-gradient {
-            background-image: linear-gradient(45deg, #9370db, #ba55d3);
+            background-image: linear-gradient(45deg, #0d47a1, #42a5f5); 
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: pulseWithRotate 2.5s infinite ease-in-out;
@@ -58,7 +58,7 @@
 
         .particle {
             position: absolute;
-            background: rgba(138, 43, 226, 0.5);
+            background: rgba(66, 165, 245, 0.5); 
             border-radius: 50%;
             pointer-events: none;
             opacity: 0;
@@ -97,12 +97,12 @@
 <body class="text-white relative">
     <div id="particle-container" class="fixed inset-0 overflow-hidden -z-10"></div>
 
-    <header class="fixed top-0 left-0 w-full px-4 sm:px-8 py-4 bg-black bg-opacity-90 z-50 transition-all duration-300 ease-in-out">
+    <header class="fixed top-0 left-0 w-full px-4 sm:px-8 py-4 bg-gray-950 z-50 transition-all duration-300 ease-in-out">
         <nav class="flex justify-between items-center max-w-7xl mx-auto">
-            <a href="#" class="text-xl sm:text-2xl font-bold lowercase text-[#9370db] hover:text-[#ba55d3] transition-colors duration-300">
+            <a href="#" class="text-xl sm:text-2xl font-bold lowercase text-[#8eaff5] hover:text-[#42a5f5] transition-colors duration-300">
                 nnotclix.xyz
             </a>
-            <button id="sidebar-toggle" class="p-2 text-white hover:text-[#ba55d3] transition-colors duration-300">
+            <button id="sidebar-toggle" class="p-2 text-white hover:text-[#42a5f5] transition-colors duration-300">
                 <i class="fas fa-bars text-xl"></i>
             </button>
         </nav>
@@ -116,16 +116,16 @@
             </button>
         </div>
         <nav class="flex flex-col space-y-4">
-            <a href="https://discord.gg/alaska26" target="_blank" class="px-4 py-2 bg-[#6a0dad] hover:bg-[#8a2be2] rounded-full font-semibold text-sm sm:text-base text-center transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#6a0dad]/40">
+            <a href="https://discord.gg/alaska26" target="_blank" class="px-4 py-2 bg-[#0d47a1] hover:bg-[#42a5f5] rounded-full font-semibold text-sm sm:text-base text-center transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#0d47a1]/40">
                 Join Our Discord
             </a>
             <a href="https://discord.com" target="_blank" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-full font-semibold text-sm sm:text-base text-center transition-all duration-300 hover:scale-105">
                 Contact
             </a>
-            <a href="#about" class="px-4 py-2 text-white hover:text-[#ba55d3] transition-colors duration-300">
+            <a href="#about" class="px-4 py-2 text-white hover:text-[#42a5f5] transition-colors duration-300">
                 About
             </a>
-            <a href="#communities" class="px-4 py-2 text-white hover:text-[#ba55d3] transition-colors duration-300">
+            <a href="#communities" class="px-4 py-2 text-white hover:text-[#42a5f5] transition-colors duration-300">
                 Communities
             </a>
         </nav>
@@ -134,18 +134,13 @@
     <main>
         <section id="hero" class="relative h-screen flex flex-col justify-center items-center text-center px-4">
             <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold mb-4 drop-shadow-xl">
-                <span class="inline-block bg-gradient-to-r from-[#9370db] to-[#ba55d3] text-transparent bg-clip-text">Next-Level Communities</span>
+                <span class="inline-block bg-gradient-to-r from-[#0d47a1] to-[#42a5f5] text-transparent bg-clip-text">Next-Level Communities</span>
             </h1>
             <p class="text-lg sm:text-xl md:text-2xl text-gray-400 mb-8 max-w-2xl animate-[slideInFromBottom_1s_ease-out_forwards] opacity-0">
                 Bringing your community to the next level
             </p>
-            <a href="https://discord.gg/alaska26" target="_blank" class="px-6 py-3 bg-[#6a0dad] hover:bg-[#8a2be2] rounded-full font-bold text-sm sm:text-base transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#6a0dad]/50 animate-[popIn_1.5s_ease-out_forwards] opacity-0">
+            <a href="https://discord.gg/alaska26" target="_blank" class="px-6 py-3 bg-[#0d47a1] hover:bg-[#42a5f5] rounded-full font-bold text-sm sm:text-base transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#0d47a1]/50 animate-[popIn_1.5s_ease-out_forwards] opacity-0">
                 Join Our 3k+ Member Discord
-            </a>
-
-            <a href="#communities" class="absolute bottom-10 flex flex-col items-center animate-[bounce_2s_infinite] opacity-75 hover:opacity-100 transition-opacity duration-300">
-                <span class="text-sm text-gray-400">Scroll Down</span>
-                <i class="fas fa-chevron-down mt-2 text-xl text-gray-400"></i>
             </a>
         </section>
 
@@ -155,14 +150,14 @@
                     Our Communities
                 </h2>
                 <div class="flex justify-center">
-                    <div class="bg-[#1f2937] p-8 rounded-2xl shadow-xl transition-transform duration-500 ease-in-out hover:scale-[1.02] hover:shadow-[0_15px_30px_rgba(106,13,173,0.5)] border border-gray-700 max-w-lg">
-                        <h3 class="text-2xl font-bold mb-4 text-[#ba55d3] drop-shadow-md">
+                    <div class="bg-[#1f2937] p-8 rounded-2xl shadow-xl transition-transform duration-500 ease-in-out hover:scale-[1.02] hover:shadow-[0_15px_30px_rgba(13,71,161,0.5)] border border-gray-700 max-w-lg">
+                        <h3 class="text-2xl font-bold mb-4 text-[#42a5f5] drop-shadow-md">
                             Alaska State Roleplay
                         </h3>
                         <p class="text-gray-300 text-base mb-6 leading-relaxed">
-                            A vibrant community with over <strong class="text-purple-400">3,000 members</strong> and continuous growth. Check out our website at <a href="https://alaska-roleplay.xyz" target="_blank" class="text-[#ba55d3] hover:underline">alaska-roleplay.xyz</a>.
+                            A vibrant community with over <strong class="text-[#8eaff5]">3,000 members</strong> and continuous growth. Check out our website at <a href="https://alaska-roleplay.xyz" target="_blank" class="text-[#42a5f5] hover:underline">alaska-roleplay.xyz</a>.
                         </p>
-                        <a href="https://discord.gg/alaska26" target="_blank" class="px-6 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-[#6a0dad] to-[#8a2be2] text-white transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#6a0dad]/50">
+                        <a href="https://discord.gg/alaska26" target="_blank" class="px-6 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-[#0d47a1] to-[#42a5f5] text-white transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#0d47a1]/50">
                             Join Now
                         </a>
                     </div>
@@ -176,9 +171,9 @@
                     About Me
                 </h2>
                 <div class="flex justify-center">
-                    <div class="bg-[#1f2937] p-8 rounded-2xl shadow-xl transition-transform duration-500 ease-in-out hover:scale-[1.02] hover:shadow-[0_15px_30px_rgba(106,13,173,0.5)] border border-gray-700 max-w-lg">
-                        <h3 class="text-2xl font-bold mb-4 text-[#ba55d3] drop-shadow-md">
-                            ER:LC Graphic Designer
+                    <div class="bg-[#1f2937] p-8 rounded-2xl shadow-xl transition-transform duration-500 ease-in-out hover:scale-[1.02] hover:shadow-[0_15px_30px_rgba(13,71,161,0.5)] border border-gray-700 max-w-lg">
+                        <h3 class="text-2xl font-bold mb-4 text-[#42a5f5] drop-shadow-md">
+                            GFX Designer
                         </h3>
                         <p class="text-gray-300 text-base mb-6 leading-relaxed">
                             Specializing in creating stunning visuals for Emergency Response: Liberty County to elevate your experience.
@@ -189,7 +184,7 @@
         </section>
     </main>
 
-    <footer class="bg-gray-900 py-8 text-center text-gray-500 text-sm">
+    <footer class="bg-gray-950 py-8 text-center text-gray-500 text-sm">
         <p>This is a mock footer. No visitors are tracked.</p>
     </footer>
 
@@ -202,7 +197,7 @@
                 const size = Math.random() * 5 + 2;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
-                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.left = `${Math.random() * 100}vw`; 
                 particle.style.top = `${100}vh`;
                 particle.style.animationDuration = `${Math.random() * 5 + 5}s`;
                 particleContainer.appendChild(particle);
@@ -212,7 +207,7 @@
                 }, parseFloat(particle.style.animationDuration) * 1000);
             }
 
-            setInterval(createParticle, 500); 
+            setInterval(createParticle, 500);
 
             const sidebar = document.getElementById('sidebar');
             const sidebarToggle = document.getElementById('sidebar-toggle');
