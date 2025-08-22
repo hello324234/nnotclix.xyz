@@ -1,235 +1,239 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>nnotclix.xyz</title>
-  <link rel="stylesheet" href="dist/output.css">
-  <link rel="icon" href="https://imgur.com/tunwvby.png" type="image/png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <style>
-    body {
-      background: linear-gradient(180deg, #0a0e1a, #1a2333);
-      color: #fff;
-      margin: 0;
-      padding: 80px 0 0 0;
-      font-family: 'Arial', sans-serif;
-      min-height: 250vh;
-      overflow-x: hidden;
-    }
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 1rem 2rem;
-      background: rgba(0, 0, 0, 0.8);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 1000;
-      animation: slideInFromTop 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .header a { text-decoration: none; }
-    .header .logo {
-      color: #9370db;
-      font-size: 1.5rem;
-      font-weight: bold;
-      text-transform: lowercase;
-      transition: all 0.4s ease;
-    }
-    .header .logo:hover {
-      color: #ba55d3;
-      transform: scale(1.1) rotate(5deg);
-    }
-    .header .contact-btn {
-      background: #6a0dad;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      color: #fff;
-      font-weight: bold;
-      transition: all 0.4s ease;
-    }
-    .header .contact-btn:hover {
-      background: #8a2be2;
-      transform: scale(1.1) translateY(-2px);
-    }
-    .hero {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      animation: fadeInWithScale 1.5s ease-out;
-    }
-    .hero h1 {
-      font-size: 3.5rem;
-      font-weight: 900;
-      background: linear-gradient(45deg, #9370db, #ba55d3);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 1rem;
-      animation: pulseWithRotate 2s infinite;
-    }
-    .hero p {
-      font-size: 1.2rem;
-      color: #d8bfd8;
-      margin-bottom: 1.5rem;
-      animation: slideInFromBottom 1.2s ease-out;
-    }
-    .hero .contact-btn {
-      background: #6a0dad;
-      padding: 0.75rem 1.5rem;
-      border-radius: 25px;
-      color: #fff;
-      font-weight: bold;
-      text-decoration: none;
-      transition: all 0.4s ease;
-    }
-    .hero .contact-btn:hover {
-      transform: scale(1.15) translateY(-3px);
-      background: #8a2be2;
-      box-shadow: 0 5px 15px rgba(138, 43, 226, 0.5);
-    }
-    .scroll-down {
-      position: absolute;
-      bottom: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      animation: bounceWithFade 2.5s infinite;
-    }
-    .scroll-down span { font-size: 0.9rem; color: #d8bfd8; }
-    .scroll-down i { font-size: 1.5rem; color: #d8bfd8; margin-top: 0.5rem; }
-    .servers, .my-work { padding: 5rem 2rem; text-align: center; animation: slideUpWithFade 1.8s ease-out; }
-    .servers h2, .my-work h2 { font-size: 2.5rem; font-weight: bold; margin-bottom: 2rem; animation: scaleIn 1.5s ease-out; }
-    .server-cards, .work-cards { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
-    .server-card, .work-card {
-      background: rgba(31, 41, 55, 0.9);
-      padding: 2rem;
-      max-width: 400px;
-      border-radius: 15px;
-      transition: all 0.5s ease;
-      animation: popIn 1.6s ease-out;
-    }
-    .server-card {
-      position: relative;
-      border: 2px solid transparent;
-      background-clip: padding-box;
-      background: linear-gradient(145deg, rgba(31, 41, 55, 0.9), rgba(50, 60, 80, 0.9));
-      box-shadow: 0 10px 30px rgba(106, 13, 173, 0.3);
-    }
-    .server-card::before {
-      content: '';
-      position: absolute;
-      top: -4px;
-      left: -4px;
-      right: -4px;
-      bottom: -4px;
-      background: linear-gradient(45deg, #6a0dad, #ba55d3);
-      border-radius: 17px;
-      z-index: -1;
-    }
-    .server-card:hover, .work-card:hover {
-      transform: translateY(-15px) rotateX(5deg);
-      box-shadow: 0 15px 30px rgba(106, 13, 173, 0.5);
-    }
-    .server-card h3, .work-card h3 {
-      font-size: 1.8rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-      background: linear-gradient(45deg, #9370db, #ba55d3);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .server-card p, .work-card p {
-      font-size: 1rem;
-      color: #d3d3d3;
-      margin-bottom: 1.5rem;
-      line-height: 1.6;
-    }
-    .server-card a {
-      background: linear-gradient(45deg, #6a0dad, #8a2be2);
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.4s ease;
-      display: inline-block;
-    }
-    .server-card a:hover {
-      background: linear-gradient(45deg, #8a2be2, #ba55d3);
-      transform: scale(1.1);
-      box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
-    }
-    .visitor-counter {
-      position: fixed;
-      bottom: 1rem;
-      right: 1rem;
-      background: rgba(0, 0, 0, 0.7);
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      font-size: 0.9rem;
-      color: #d8bfd8;
-      animation: fadeInWithSpin 1.2s ease-out;
-    }
-    .particle {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: rgba(138, 43, 226, 0.5);
-      border-radius: 50%;
-      pointer-events: none;
-      animation: particleFade 1.5s ease-out;
-    }
-    @keyframes slideInFromTop {0% { transform: translateY(-100%) scale(0.8); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; }}
-    @keyframes fadeInWithScale {0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; }}
-    @keyframes pulseWithRotate {0% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.1) rotate(2deg); } 100% { transform: scale(1) rotate(0deg); }}
-    @keyframes slideInFromBottom {0% { transform: translateY(50px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; }}
-    @keyframes bounceWithFade {0%, 20%, 50%, 80%, 100% { transform: translateY(0); opacity: 0.7; } 40% { transform: translateY(-15px); opacity: 1; } 60% { transform: translateY(-8px); opacity: 0.9; }}
-    @keyframes slideUpWithFade {0% { transform: translateY(50px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; }}
-    @keyframes scaleIn {0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; }}
-    @keyframes popIn {0% { transform: scale(0) rotate(-15deg); opacity: 0; } 70% { transform: scale(1.2) rotate(5deg); opacity: 0.8; } 100% { transform: scale(1) rotate(0deg); opacity: 1; }}
-    @keyframes fadeInWithSpin {0% { transform: rotate(-180deg); opacity: 0; } 100% { transform: rotate(0deg); opacity: 1; }}
-    @keyframes particleFade {0% { transform: scale(1); opacity: 1; } 100% { transform: scale(0); opacity: 0; }}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nnotclix.xyz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ba55d3;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(
+                to bottom,
+                #083694f1 10%,
+                #8eaff5 25%,
+                #0c121f 100%
+            );
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(
+                to bottom,
+                #083694f1 10%,
+                #8eaff5 25%,
+                #0c121f 100%
+            );
+            color: #eee;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .hero-text-gradient {
+            background-image: linear-gradient(45deg, #9370db, #ba55d3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulseWithRotate 2.5s infinite ease-in-out;
+        }
+
+        .scroll-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(138, 43, 226, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            animation: particle-anim 5s linear forwards;
+        }
+
+        @keyframes pulseWithRotate {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.05) rotate(0.5deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            40% {
+                transform: translateY(-10px);
+                opacity: 0.8;
+            }
+            60% {
+                transform: translateY(-5px);
+                opacity: 0.9;
+            }
+        }
+
+        @keyframes particle-anim {
+            0% { transform: translateY(0) scale(0.1); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+        }
+    </style>
 </head>
-<body>
-  <div class="header">
-    <a href="#" class="logo">nnotclix.xyz</a>
-    <a href="https://discord.com" target="_blank" class="contact-btn">Contact</a>
-  </div>
 
-  <div class="hero relative">
-    <h1><span id="rotating-text"></span></h1>
-    <p>Bringing your community to the next level</p>
-    <a href="https://discord.gg/alaska26" target="_blank" class="contact-btn">Join Our 3k+ Member Discord</a>
-    <div class="scroll-down">
-      <span>Scroll Down</span>
-      <i class="fas fa-chevron-down"></i>
-    </div>
-  </div>
+<body class="text-white relative">
+    <div id="particle-container" class="fixed inset-0 overflow-hidden -z-10"></div>
 
-  <div class="servers">
-    <h2>Our Communities</h2>
-    <div class="server-cards">
-      <div class="server-card">
-        <h3>Alaska State Roleplay</h3>
-        <p>A vibrant community with over <strong>3,000 members</strong> and continuous growth. Check out our website at <a href="https://alaska-roleplay.xyz" target="_blank" style="color:#ba55d3;">alaska-roleplay.xyz</a>.</p>
-        <a href="https://discord.gg/alaska26" target="_blank">Join Now</a>
-      </div>
-    </div>
-  </div>
+    <header class="fixed top-0 left-0 w-full px-4 sm:px-8 py-4 bg-black bg-opacity-90 z-50 transition-all duration-300 ease-in-out">
+        <nav class="flex justify-between items-center max-w-7xl mx-auto">
+            <a href="#" class="text-xl sm:text-2xl font-bold lowercase text-[#9370db] hover:text-[#ba55d3] transition-colors duration-300">
+                nnotclix.xyz
+            </a>
+            <button id="sidebar-toggle" class="p-2 text-white hover:text-[#ba55d3] transition-colors duration-300">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </nav>
+    </header>
 
-  <div class="my-work">
-    <h2>About Me</h2>
-    <div class="work-cards">
-      <div class="work-card">
-        <h3>ER:LC Graphic Designer</h3>
-        <p>Specializing in creating stunning visuals for Emergency Response: Liberty County to elevate your experience.</p>
-      </div>
-      <div class
+    <aside id="sidebar" class="fixed top-0 right-0 h-full w-64 bg-gray-950 p-6 z-[60] transform translate-x-full transition-transform duration-300 ease-in-out">
+        <div class="flex justify-between items-center mb-10">
+            <h2 class="text-xl font-bold text-white">Menu</h2>
+            <button id="sidebar-close" class="p-2 text-white hover:text-red-500 transition-colors duration-300">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        <nav class="flex flex-col space-y-4">
+            <a href="https://discord.gg/alaska26" target="_blank" class="px-4 py-2 bg-[#6a0dad] hover:bg-[#8a2be2] rounded-full font-semibold text-sm sm:text-base text-center transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#6a0dad]/40">
+                Join Our Discord
+            </a>
+            <a href="https://discord.com" target="_blank" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-full font-semibold text-sm sm:text-base text-center transition-all duration-300 hover:scale-105">
+                Contact
+            </a>
+            <a href="#about" class="px-4 py-2 text-white hover:text-[#ba55d3] transition-colors duration-300">
+                About
+            </a>
+            <a href="#communities" class="px-4 py-2 text-white hover:text-[#ba55d3] transition-colors duration-300">
+                Communities
+            </a>
+        </nav>
+    </aside>
+
+    <main>
+        <section id="hero" class="relative h-screen flex flex-col justify-center items-center text-center px-4">
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold mb-4 drop-shadow-xl">
+                <span class="inline-block bg-gradient-to-r from-[#9370db] to-[#ba55d3] text-transparent bg-clip-text">Next-Level Communities</span>
+            </h1>
+            <p class="text-lg sm:text-xl md:text-2xl text-gray-400 mb-8 max-w-2xl animate-[slideInFromBottom_1s_ease-out_forwards] opacity-0">
+                Bringing your community to the next level
+            </p>
+            <a href="https://discord.gg/alaska26" target="_blank" class="px-6 py-3 bg-[#6a0dad] hover:bg-[#8a2be2] rounded-full font-bold text-sm sm:text-base transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#6a0dad]/50 animate-[popIn_1.5s_ease-out_forwards] opacity-0">
+                Join Our 3k+ Member Discord
+            </a>
+
+            <a href="#communities" class="absolute bottom-10 flex flex-col items-center animate-[bounce_2s_infinite] opacity-75 hover:opacity-100 transition-opacity duration-300">
+                <span class="text-sm text-gray-400">Scroll Down</span>
+                <i class="fas fa-chevron-down mt-2 text-xl text-gray-400"></i>
+            </a>
+        </section>
+
+        <section id="communities" class="py-16 px-4 sm:px-8">
+            <div class="max-w-7xl mx-auto text-center">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-12 drop-shadow-lg">
+                    Our Communities
+                </h2>
+                <div class="flex justify-center">
+                    <div class="bg-[#1f2937] p-8 rounded-2xl shadow-xl transition-transform duration-500 ease-in-out hover:scale-[1.02] hover:shadow-[0_15px_30px_rgba(106,13,173,0.5)] border border-gray-700 max-w-lg">
+                        <h3 class="text-2xl font-bold mb-4 text-[#ba55d3] drop-shadow-md">
+                            Alaska State Roleplay
+                        </h3>
+                        <p class="text-gray-300 text-base mb-6 leading-relaxed">
+                            A vibrant community with over <strong class="text-purple-400">3,000 members</strong> and continuous growth. Check out our website at <a href="https://alaska-roleplay.xyz" target="_blank" class="text-[#ba55d3] hover:underline">alaska-roleplay.xyz</a>.
+                        </p>
+                        <a href="https://discord.gg/alaska26" target="_blank" class="px-6 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-[#6a0dad] to-[#8a2be2] text-white transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#6a0dad]/50">
+                            Join Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-16 px-4 sm:px-8">
+            <div class="max-w-7xl mx-auto text-center">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-12 drop-shadow-lg">
+                    About Me
+                </h2>
+                <div class="flex justify-center">
+                    <div class="bg-[#1f2937] p-8 rounded-2xl shadow-xl transition-transform duration-500 ease-in-out hover:scale-[1.02] hover:shadow-[0_15px_30px_rgba(106,13,173,0.5)] border border-gray-700 max-w-lg">
+                        <h3 class="text-2xl font-bold mb-4 text-[#ba55d3] drop-shadow-md">
+                            ER:LC Graphic Designer
+                        </h3>
+                        <p class="text-gray-300 text-base mb-6 leading-relaxed">
+                            Specializing in creating stunning visuals for Emergency Response: Liberty County to elevate your experience.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 py-8 text-center text-gray-500 text-sm">
+        <p>This is a mock footer. No visitors are tracked.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const particleContainer = document.getElementById('particle-container');
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 5 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${100}vh`;
+                particle.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                particleContainer.appendChild(particle);
+
+                setTimeout(() => {
+                    particle.remove();
+                }, parseFloat(particle.style.animationDuration) * 1000);
+            }
+
+            setInterval(createParticle, 500); 
+
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const sidebarClose = document.getElementById('sidebar-close');
+
+            sidebarToggle.addEventListener('click', () => {
+                sidebar.classList.remove('translate-x-full');
+            });
+
+            sidebarClose.addEventListener('click', () => {
+                sidebar.classList.add('translate-x-full');
+            });
+
+            const sidebarLinks = sidebar.querySelectorAll('a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    sidebar.classList.add('translate-x-full');
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
