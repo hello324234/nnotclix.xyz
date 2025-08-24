@@ -16,192 +16,154 @@
   
   <style>
     /* Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: linear-gradient(to bottom, #083694f1 10%, #8eaff5 25%, #0c121f 100%);
-    }
+    ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-thumb {
-      background: linear-gradient(to top, #083694f1 10%, #8eaff5 25%, #0c121f 100%);
+      background: linear-gradient(to bottom, #9333ea, #3b82f6);
       border-radius: 4px;
     }
-    ::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(to bottom, #083694f1 10%, #8eaff5 25%, #0c121f 100%);
-    }
 
-    /* Body */
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(to bottom, #083694f1 10%, #8eaff5 25%, #0c121f 100%);
+      background: radial-gradient(circle at top left, #1e1b4b, #0f172a 80%);
       color: #eee;
       overflow-x: hidden;
       min-height: 100vh;
+      position: relative;
+    }
+
+    /* Cursor glow */
+    .cursor-glow {
+      position: fixed;
+      top: 0; left: 0;
+      width: 250px; height: 250px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(147,51,234,0.25), rgba(59,130,246,0.15), transparent 70%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      mix-blend-mode: screen;
     }
 
     /* Animations */
-    @keyframes popIn {
-      from { transform: scale(0.9); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
     }
-    @keyframes slideInFromBottom {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+
+    .card {
+      transition: all 0.3s ease;
+      background: linear-gradient(145deg, #1f2937, #111827);
+      border: 1px solid rgba(147,51,234,0.3);
+    }
+    .card:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: #9333ea;
+      box-shadow: 0 0 20px rgba(147,51,234,0.5);
     }
   </style>
 </head>
 <body class="text-white relative">
 
-  <!-- Particles -->
-  <div id="particle-container" class="fixed inset-0 overflow-hidden -z-10"></div>
-  
+  <!-- Cursor Glow -->
+  <div class="cursor-glow" id="cursor-glow"></div>
+
   <!-- Header -->
-  <header class="w-full px-6 py-4 bg-transparent backdrop-blur-md flex items-center justify-between z-50">
-    <a href="#top" class="flex items-center space-x-2 text-xl sm:text-2xl font-bold lowercase text-white hover:text-[#42a5f5] transition-colors">
+  <header class="w-full px-6 py-4 backdrop-blur-md flex items-center justify-between z-50 relative">
+    <a href="#top" class="flex items-center space-x-2 text-xl sm:text-2xl font-bold lowercase hover:text-purple-400 transition">
       <img src="clix.webp" alt="Clix Logo" class="rounded-full w-10 h-10">
       <span>nnotclix.xyz</span>
     </a>
-    
     <nav class="hidden md:flex items-center space-x-6">
-      <a href="#communities" class="hover:text-[#42a5f5] transition-colors flex items-center space-x-2">
-        <i class="fas fa-users"></i><span>Communities</span>
-      </a>
-      <a href="#about" class="hover:text-[#42a5f5] transition-colors flex items-center space-x-2">
-        <i class="fas fa-info-circle"></i><span>About Me</span>
-      </a>
-      <a href="https://discord.com/users/798525456281370625" target="_blank" class="hover:text-[#42a5f5] transition-colors flex items-center space-x-2">
-        <i class="fab fa-discord"></i><span>Contact</span>
-      </a>
+      <a href="#communities" class="hover:text-purple-400 transition">Communities</a>
+      <a href="#about" class="hover:text-purple-400 transition">About Me</a>
+      <a href="https://discord.com/users/798525456281370625" target="_blank" class="hover:text-purple-400 transition">Contact</a>
     </nav>
-    
-    <button id="mobile-menu-toggle" class="md:hidden flex items-center space-x-1 hover:text-[#42a5f5] transition-colors">
-      <i class="fas fa-bars text-lg"></i><span>Menu</span>
+    <button id="mobile-menu-toggle" class="md:hidden hover:text-purple-400 transition">
+      <i class="fas fa-bars text-lg"></i>
     </button>
   </header>
 
-  <!-- Mobile Menu -->
-  <aside id="mobile-menu" class="fixed top-0 left-0 h-full w-64 bg-gray-950 p-6 z-[60] transform -translate-x-full transition-transform duration-300">
-    <div class="flex justify-between items-center mb-6">
-      <h2 class="text-xl font-bold">Menu</h2>
-      <button id="mobile-menu-close" class="p-2 hover:text-red-500 transition-colors">
-        <i class="fas fa-times text-xl"></i>
-      </button>
-    </div>
-    <nav class="flex flex-col space-y-4">
-      <a href="#communities" class="hover:text-[#42a5f5] flex items-center space-x-2"><i class="fas fa-users"></i><span>Communities</span></a>
-      <a href="#about" class="hover:text-[#42a5f5] flex items-center space-x-2"><i class="fas fa-info-circle"></i><span>About Me</span></a>
-      <a href="https://discord.com/users/798525456281370625" target="_blank" class="hover:text-[#42a5f5] flex items-center space-x-2"><i class="fab fa-discord"></i><span>Contact</span></a>
-    </nav>
-  </aside>
-
   <!-- Hero -->
-  <section id="hero" class="relative flex flex-col justify-center items-center text-center px-6 py-24">
-    <h1 class="text-5xl sm:text-7xl font-extrabold mb-6 drop-shadow-xl bg-gradient-to-r from-[#0d47a1] to-[#42a5f5] bg-clip-text text-transparent animate-[popIn_1s_ease-out]">
+  <section id="hero" class="flex flex-col justify-center items-center text-center px-6 py-32 relative z-10">
+    <h1 class="text-5xl sm:text-7xl font-extrabold mb-6 bg-gradient-to-r from-purple-500 to-blue-400 bg-clip-text text-transparent animate-pulse">
       Next-Level Services
     </h1>
-    <p class="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl animate-[slideInFromBottom_1s_ease-out]">
+    <p class="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl">
       Bringing your community to the next level
     </p>
-    <a href="https://discord.gg/alaska26" target="_blank" class="px-8 py-3 bg-[#0d47a1] hover:bg-[#42a5f5] rounded-full font-bold transition-all duration-300 hover:scale-110 hover:shadow-xl">
-      Join our Discord community with over 3,000 users!
+    <a href="https://discord.gg/alaska26" target="_blank" class="px-8 py-3 bg-purple-600 hover:bg-purple-500 rounded-full font-bold transition-all duration-300 hover:scale-110 hover:shadow-xl">
+      Join our Discord community
     </a>
   </section>
 
   <!-- Communities -->
-  <section id="communities" class="py-16 px-6">
+  <section id="communities" class="py-20 px-6 relative z-10">
     <div class="max-w-6xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-12 drop-shadow-lg">Our Communities</h2>
+      <h2 class="text-4xl font-bold mb-12">Our Communities</h2>
       <div class="flex flex-wrap justify-center gap-6">
-        
-        <!-- Alaska -->
-        <div class="bg-[#1f2937] p-8 rounded-2xl shadow-xl border border-gray-700 hover:scale-105 transition-transform">
+        <div class="card p-8 rounded-2xl shadow-lg w-80">
           <div class="flex items-center justify-center space-x-4 mb-4">
             <img src="alaska.webp" alt="Alaska Logo" class="rounded-full w-12 h-12">
-            <h3 class="text-2xl font-bold text-[#42a5f5]">Alaska State Roleplay</h3>
+            <h3 class="text-2xl font-bold text-purple-400">Alaska State Roleplay</h3>
           </div>
-          <p class="text-gray-300 text-base leading-relaxed">
-            A vibrant community with over <strong class="text-[#8eaff5]">3,000 members</strong> and continuous growth.  
-            Visit <a href="https://alaska-roleplay.xyz" target="_blank" class="text-[#42a5f5] hover:underline">alaska-roleplay.xyz</a>.
+          <p class="text-gray-300 leading-relaxed">
+            A vibrant community with over <span class="text-purple-400 font-semibold">3,000 members</span>.  
+            Visit <a href="https://alaska-roleplay.xyz" target="_blank" class="text-blue-400 hover:underline">alaska-roleplay.xyz</a>.
           </p>
         </div>
-
       </div>
     </div>
   </section>
 
   <!-- About -->
-  <section id="about" class="py-16 px-6">
+  <section id="about" class="py-20 px-6 relative z-10">
     <div class="max-w-6xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-12 drop-shadow-lg">About Me</h2>
+      <h2 class="text-4xl font-bold mb-12">About Me</h2>
       <div class="flex flex-wrap justify-center gap-6">
-        
-        <div class="bg-[#1f2937] p-8 rounded-2xl shadow-xl border border-gray-700 hover:scale-105 transition-transform">
-          <h3 class="text-2xl font-bold text-[#42a5f5] mb-4">GFX Designer</h3>
+        <div class="card p-8 rounded-2xl w-72">
+          <h3 class="text-2xl font-bold text-purple-400 mb-4">GFX Designer</h3>
           <p class="text-gray-300">Creating stunning visuals for Emergency Response: Liberty County.</p>
         </div>
-        
-        <div class="bg-[#1f2937] p-8 rounded-2xl shadow-xl border border-gray-700 hover:scale-105 transition-transform">
-          <h3 class="text-2xl font-bold text-[#42a5f5] mb-4">Alting Services</h3>
-          <p class="text-gray-300">Offering services to enhance your server growth process.</p>
+        <div class="card p-8 rounded-2xl w-72">
+          <h3 class="text-2xl font-bold text-purple-400 mb-4">Alting Services</h3>
+          <p class="text-gray-300">Helping servers grow faster with proven methods.</p>
         </div>
-        
-        <div class="bg-[#1f2937] p-8 rounded-2xl shadow-xl border border-gray-700 hover:scale-105 transition-transform">
-          <h3 class="text-2xl font-bold text-[#42a5f5] mb-4">Staff Experience</h3>
-          <p class="text-gray-300">Experienced in managing teams and communities for smooth growth.</p>
+        <div class="card p-8 rounded-2xl w-72">
+          <h3 class="text-2xl font-bold text-purple-400 mb-4">Staff Experience</h3>
+          <p class="text-gray-300">Experienced in managing teams and building communities.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="py-16 px-6 text-center">
-    <h2 class="text-4xl font-bold mb-8 drop-shadow-lg">Let's Connect</h2>
-    <div class="flex flex-wrap justify-center gap-8 text-xl">
-      <a href="https://discord.com/users/798525456281370625" target="_blank" class="flex flex-col items-center p-6 bg-[#1f2937] rounded-lg shadow-md hover:bg-[#2e3b4d] transition">
-        <i class="fab fa-discord text-3xl mb-2"></i><span>Discord</span>
+  <section id="contact" class="py-20 px-6 text-center relative z-10">
+    <h2 class="text-4xl font-bold mb-12">Let's Connect</h2>
+    <div class="flex flex-wrap justify-center gap-8">
+      <a href="https://discord.com/users/798525456281370625" target="_blank" class="card p-6 rounded-lg w-40 flex flex-col items-center hover:scale-105 transition">
+        <i class="fab fa-discord text-3xl mb-2 text-purple-400"></i>
+        <span>Discord</span>
       </a>
-      <a href="https://www.roblox.com/users/nnotclix/profile" target="_blank" class="flex flex-col items-center p-6 bg-[#1f2937] rounded-lg shadow-md hover:bg-[#2e3b4d] transition">
-        <img src="robloxx.png" alt="Roblox Logo" class="h-12 w-12 object-contain mb-2 transform -rotate-12">
+      <a href="https://www.roblox.com/users/nnotclix/profile" target="_blank" class="card p-6 rounded-lg w-40 flex flex-col items-center hover:scale-105 transition">
+        <img src="robloxx.png" alt="Roblox Logo" class="h-12 w-12 mb-2 transform -rotate-6">
         <span>Roblox</span>
       </a>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="py-6 text-center text-gray-500 text-sm">
+  <footer class="py-6 text-center text-gray-500 text-sm relative z-10">
     <p>© 2025 nnotclix.xyz • All rights reserved.</p>
   </footer>
 
   <!-- JS -->
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // Particles
-      const particleContainer = document.getElementById('particle-container');
-      function createParticle() {
-        const particle = document.createElement('div');
-        particle.className = 'absolute bg-blue-400/40 rounded-full pointer-events-none';
-        const size = Math.random() * 5 + 2;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.left = `${Math.random() * 100}vw`;
-        particle.style.top = `100vh`;
-        particle.style.animation = `float ${Math.random() * 6 + 4}s linear forwards`;
-        particleContainer.appendChild(particle);
-        setTimeout(() => particle.remove(), 8000);
-      }
-      setInterval(createParticle, 400);
-
-      // Mobile Menu
-      const mobileMenu = document.getElementById('mobile-menu');
-      document.getElementById('mobile-menu-toggle').addEventListener('click', () => {
-        mobileMenu.classList.remove('-translate-x-full');
-      });
-      document.getElementById('mobile-menu-close').addEventListener('click', () => {
-        mobileMenu.classList.add('-translate-x-full');
-      });
-      document.querySelectorAll('#mobile-menu a').forEach(link => {
-        link.addEventListener('click', () => mobileMenu.classList.add('-translate-x-full'));
-      });
+    // Cursor Glow Movement
+    const cursorGlow = document.getElementById('cursor-glow');
+    document.addEventListener('mousemove', (e) => {
+      cursorGlow.style.left = e.clientX + 'px';
+      cursorGlow.style.top = e.clientY + 'px';
     });
   </script>
 </body>
