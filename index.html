@@ -12,9 +12,8 @@
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #9333ea, #3b82f6); border-radius: 4px; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #9333ea, #3b82f6); border-radius: 3px; }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -25,10 +24,8 @@
       position: relative;
     }
 
-    /* Cursor glow */
     .cursor-glow {
-      position: fixed;
-      top: 0; left: 0;
+      position: fixed; top: 0; left: 0;
       width: 250px; height: 250px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(147,51,234,0.25), rgba(59,130,246,0.15), transparent 70%);
@@ -38,7 +35,6 @@
       mix-blend-mode: screen;
     }
 
-    /* Animations */
     @keyframes float { 
       0% { transform: translateY(0px); } 
       50% { transform: translateY(-8px); } 
@@ -97,7 +93,7 @@
       <h2 class="text-4xl font-bold mb-12">Our Communities</h2>
       <div class="flex flex-wrap justify-center gap-6">
         
-        <!-- Alaska Community Info -->
+        <!-- Alaska Info -->
         <div class="card p-8 rounded-2xl shadow-lg w-80 animate-[float_6s_ease-in-out_infinite]">
           <div class="flex items-center justify-center space-x-4 mb-4">
             <img src="alaska.webp" alt="Alaska Logo" class="rounded-full w-12 h-12">
@@ -111,12 +107,13 @@
           </p>
         </div>
 
-        <!-- Alaska Server Live Stats -->
-        <div id="server-stats" class="card p-8 rounded-2xl shadow-lg w-80 animate-[float_7s_ease-in-out_infinite] flex flex-col justify-center items-center">
+        <!-- Live Server Stats -->
+        <div id="server-stats" class="card p-8 rounded-2xl shadow-lg w-96 animate-[float_7s_ease-in-out_infinite] text-center">
           <h3 class="text-2xl font-bold text-blue-400 mb-4">Live Server Stats</h3>
-          <div id="stats-content" class="text-gray-300 text-center">
-            <p class="animate-pulse">Fetching live data...</p>
+          <div id="stats-content" class="text-gray-300">
+            <p class="animate-pulse">Loading server data...</p>
           </div>
+          <div id="player-list" class="mt-4 max-h-48 overflow-y-auto text-left text-sm"></div>
         </div>
 
       </div>
@@ -166,37 +163,59 @@
 
   <!-- JS -->
   <script>
-    // Cursor Glow Movement
+    // Cursor Glow
     const cursorGlow = document.getElementById('cursor-glow');
     document.addEventListener('mousemove', (e) => {
       cursorGlow.style.left = e.clientX + 'px';
       cursorGlow.style.top = e.clientY + 'px';
     });
 
-    // Fetch ERLC Server Stats
-    async function fetchServerStats() {
-      try {
-        const res = await fetch("https://api.erlc.dev/v1/server", {
-          headers: {
-            "Authorization": "HuxKsayJDAbcZHbblYpZ-dBWZCyRkYLStQAqkoYphwfHeDQqjaCTvQwQPvZhU"
-          }
-        });
-        const data = await res.json();
+    const API_BASE = "https://api.policeroleplay.community/v1";
+    const API_KEY = "HuxKsayJDAbcZHbblYpZ-dBWZCyRkYLStQAqkoYphwfHeDQqjaCTvQwQPvZhU";
 
-        const statsDiv = document.getElementById("stats-content");
+    async function fetchServerStats() {
+      const statsDiv = document.getElementById("stats-content");
+      const playerDiv = document.getElementById("player-list");
+      try {
+        // Fetch server info
+        const serverRes = await fetch(`${API_BASE}/server`, {
+          headers: { "server-key": API_KEY }
+        });
+        if (!serverRes.ok) throw new Error("Server API error");
+        const server = await serverRes.json();
+
         statsDiv.innerHTML = `
-          <p><span class="text-purple-400 font-semibold">Server Name:</span> ${data.name || "N/A"}</p>
-          <p><span class="text-purple-400 font-semibold">Players:</span> ${data.playerCount || 0}/${data.maxPlayers || 0}</p>
-          <p><span class="text-purple-400 font-semibold">Status:</span> ${data.online ? "🟢 Online" : "🔴 Offline"}</p>
+          <p><span class="text-purple-400 font-semibold">Name:</span> ${server.Name}</p>
+          <p><span class="text-purple-400 font-semibold">Players:</span> ${server.CurrentPlayers}/${server.MaxPlayers}</p>
+          <p><span class="text-purple-400 font-semibold">Join Key:</span> ${server.JoinKey}</p>
         `;
+
+        // Fetch players
+        const playerRes = await fetch(`${API_BASE}/server/players`, {
+          headers: { "server-key": API_KEY }
+        });
+        if (!playerRes.ok) throw new Error("Player API error");
+        const players = await playerRes.json();
+
+        if (players.length === 0) {
+          playerDiv.innerHTML = `<p class="text-gray-400 italic">No players online.</p>`;
+        } else {
+          playerDiv.innerHTML = players.map(p => `
+            <div class="p-2 border-b border-gray-700 flex justify-between">
+              <span class="text-purple-300 font-semibold">${p.Player.split(":")[0]}</span>
+              <span class="text-gray-400">${p.Team || "Civilian"}</span>
+            </div>
+          `).join("");
+        }
+
       } catch (err) {
-        document.getElementById("stats-content").innerHTML = "<p class='text-red-400'>Failed to load server stats.</p>";
+        statsDiv.innerHTML = `<p class="text-red-400">Failed to load server stats.</p>`;
+        playerDiv.innerHTML = "";
       }
     }
 
-    // Refresh stats every 30s
     fetchServerStats();
-    setInterval(fetchServerStats, 30000);
+    setInterval(fetchServerStats, 20000); // refresh every 20s
   </script>
 </body>
 </html>
