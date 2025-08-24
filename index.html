@@ -4,23 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>nnotclix.xyz</title>
-  
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
   <style>
     /* Scrollbar */
     ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(to bottom, #9333ea, #3b82f6);
-      border-radius: 4px;
-    }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #9333ea, #3b82f6); border-radius: 4px; }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -45,10 +39,10 @@
     }
 
     /* Animations */
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
-      100% { transform: translateY(0px); }
+    @keyframes float { 
+      0% { transform: translateY(0px); } 
+      50% { transform: translateY(-8px); } 
+      100% { transform: translateY(0px); } 
     }
 
     .card {
@@ -102,16 +96,29 @@
     <div class="max-w-6xl mx-auto text-center">
       <h2 class="text-4xl font-bold mb-12">Our Communities</h2>
       <div class="flex flex-wrap justify-center gap-6">
-        <div class="card p-8 rounded-2xl shadow-lg w-80">
+        
+        <!-- Alaska Community Info -->
+        <div class="card p-8 rounded-2xl shadow-lg w-80 animate-[float_6s_ease-in-out_infinite]">
           <div class="flex items-center justify-center space-x-4 mb-4">
             <img src="alaska.webp" alt="Alaska Logo" class="rounded-full w-12 h-12">
             <h3 class="text-2xl font-bold text-purple-400">Alaska State Roleplay</h3>
           </div>
           <p class="text-gray-300 leading-relaxed">
-            A vibrant community with over <span class="text-purple-400 font-semibold">3,000 members</span>.  
-            Visit <a href="https://alaska-roleplay.xyz" target="_blank" class="text-blue-400 hover:underline">alaska-roleplay.xyz</a>.
+            A vibrant community with over 
+            <span class="text-purple-400 font-semibold">3,000 members</span>. 
+            Visit 
+            <a href="https://alaska-roleplay.xyz" target="_blank" class="text-blue-400 hover:underline">alaska-roleplay.xyz</a>.
           </p>
         </div>
+
+        <!-- Alaska Server Live Stats -->
+        <div id="server-stats" class="card p-8 rounded-2xl shadow-lg w-80 animate-[float_7s_ease-in-out_infinite] flex flex-col justify-center items-center">
+          <h3 class="text-2xl font-bold text-blue-400 mb-4">Live Server Stats</h3>
+          <div id="stats-content" class="text-gray-300 text-center">
+            <p class="animate-pulse">Fetching live data...</p>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -165,6 +172,31 @@
       cursorGlow.style.left = e.clientX + 'px';
       cursorGlow.style.top = e.clientY + 'px';
     });
+
+    // Fetch ERLC Server Stats
+    async function fetchServerStats() {
+      try {
+        const res = await fetch("https://api.erlc.dev/v1/server", {
+          headers: {
+            "Authorization": "HuxKsayJDAbcZHbblYpZ-dBWZCyRkYLStQAqkoYphwfHeDQqjaCTvQwQPvZhU"
+          }
+        });
+        const data = await res.json();
+
+        const statsDiv = document.getElementById("stats-content");
+        statsDiv.innerHTML = `
+          <p><span class="text-purple-400 font-semibold">Server Name:</span> ${data.name || "N/A"}</p>
+          <p><span class="text-purple-400 font-semibold">Players:</span> ${data.playerCount || 0}/${data.maxPlayers || 0}</p>
+          <p><span class="text-purple-400 font-semibold">Status:</span> ${data.online ? "🟢 Online" : "🔴 Offline"}</p>
+        `;
+      } catch (err) {
+        document.getElementById("stats-content").innerHTML = "<p class='text-red-400'>Failed to load server stats.</p>";
+      }
+    }
+
+    // Refresh stats every 30s
+    fetchServerStats();
+    setInterval(fetchServerStats, 30000);
   </script>
 </body>
 </html>
