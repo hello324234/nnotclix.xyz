@@ -5,28 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>nnotclix.xyz</title>
 
-  <!-- ✅ SEO Metadata -->
-  <meta name="description" content="nnotclix.xyz - Next-level community services, live server stats, and design expertise. Join us today!">
-  <meta property="og:title" content="nnotclix.xyz">
-  <meta property="og:description" content="Bringing your community to the next level with live stats, services, and more.">
-  <meta property="og:image" content="clix.webp">
-  <meta property="og:url" content="https://nnotclix.xyz">
-  <meta name="twitter:card" content="summary_large_image">
-
   <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- ✅ Framer Motion -->
-  <script src="https://unpkg.com/framer-motion/dist/framer-motion.umd.js"></script>
 
   <style>
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #9333ea, #3b82f6); border-radius: 3px; }
-
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, #9333ea, #3b82f6);
+      border-radius: 3px;
+    }
     body {
       font-family: 'Inter', sans-serif;
       background: radial-gradient(circle at top left, #1e1b4b, #0f172a 80%);
@@ -34,27 +29,25 @@
       overflow-x: hidden;
       min-height: 100vh;
       position: relative;
-      transition: background 0.4s ease, color 0.4s ease;
     }
-
-    /* ✅ Light Mode */
-    .light body {
-      background: #f9fafb;
-      color: #111827;
-    }
-
     .cursor-glow {
-      position: fixed; top: 0; left: 0;
-      width: 250px; height: 250px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 250px;
+      height: 250px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(147,51,234,0.25), rgba(59,130,246,0.15), transparent 70%);
       pointer-events: none;
       transform: translate(-50%, -50%);
       z-index: 1;
       mix-blend-mode: screen;
-      transition: top 0.1s ease, left 0.1s ease; /* ✅ smooth trail */
     }
-
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
+    }
     .card {
       transition: all 0.3s ease;
       background: linear-gradient(145deg, #1f2937, #111827);
@@ -81,12 +74,8 @@
     <nav class="hidden md:flex items-center space-x-6">
       <a href="#communities" class="hover:text-purple-400 transition">Communities</a>
       <a href="#about" class="hover:text-purple-400 transition">About Me</a>
-      <a href="#contact" class="hover:text-purple-400 transition">Contact</a>
+      <a href="https://discord.com/users/798525456281370625" target="_blank" class="hover:text-purple-400 transition">Contact</a>
     </nav>
-    <!-- ✅ Dark/Light Toggle -->
-    <button id="theme-toggle" class="ml-4 px-3 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 transition">
-      <i class="fas fa-moon"></i>
-    </button>
     <button id="mobile-menu-toggle" class="md:hidden hover:text-purple-400 transition">
       <i class="fas fa-bars text-lg"></i>
     </button>
@@ -110,26 +99,22 @@
     <div class="max-w-6xl mx-auto text-center">
       <h2 class="text-4xl font-bold mb-12">Our Communities</h2>
       <div class="flex flex-wrap justify-center gap-6">
-        
+
         <!-- Alaska Info -->
-        <div class="card p-8 rounded-2xl shadow-lg w-80" data-motion>
+        <div class="card p-8 rounded-2xl shadow-lg w-80 animate-[float_6s_ease-in-out_infinite]">
           <div class="flex items-center justify-center space-x-4 mb-4">
             <img src="alaska.webp" alt="Alaska Logo" class="rounded-full w-12 h-12">
             <h3 class="text-2xl font-bold text-purple-400">Alaska State Roleplay</h3>
           </div>
           <p class="text-gray-300 leading-relaxed">
-            A vibrant community with over 
-            <span class="text-purple-400 font-semibold">3,000 members</span>. 
-            Visit 
-            <a href="https://alaska-roleplay.xyz" target="_blank" class="text-blue-400 hover:underline">alaska-roleplay.xyz</a>.
+            A vibrant community with over <span class="text-purple-400 font-semibold">3,000 members</span>.
+            Visit <a href="https://alaska-roleplay.xyz" target="_blank" class="text-blue-400 hover:underline">alaska-roleplay.xyz</a>.
           </p>
         </div>
 
         <!-- Live Server Stats -->
-        <div id="server-stats" class="card p-8 rounded-2xl shadow-lg w-96 text-center" data-motion>
+        <div id="server-stats" class="card p-8 rounded-2xl shadow-lg w-96 animate-[float_7s_ease-in-out_infinite] text-center">
           <h3 class="text-2xl font-bold text-blue-400 mb-4">Live Server Stats</h3>
-          <!-- ✅ Player Search -->
-          <input type="text" id="player-search" placeholder="Search players..." class="mb-4 px-3 py-2 rounded w-full text-black">
           <div id="stats-content" class="text-gray-300">
             <p class="animate-pulse">Loading server data...</p>
           </div>
@@ -140,6 +125,47 @@
     </div>
   </section>
 
+  <!-- About -->
+  <section id="about" class="py-20 px-6 relative z-10">
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-12">About Me</h2>
+      <div class="flex flex-wrap justify-center gap-6">
+        <div class="card p-8 rounded-2xl w-72">
+          <h3 class="text-2xl font-bold text-purple-400 mb-4">GFX Designer</h3>
+          <p class="text-gray-300">Creating stunning visuals for Emergency Response: Liberty County.</p>
+        </div>
+        <div class="card p-8 rounded-2xl w-72">
+          <h3 class="text-2xl font-bold text-purple-400 mb-4">Alting Services</h3>
+          <p class="text-gray-300">Helping servers grow faster with proven methods.</p>
+        </div>
+        <div class="card p-8 rounded-2xl w-72">
+          <h3 class="text-2xl font-bold text-purple-400 mb-4">Staff Experience</h3>
+          <p class="text-gray-300">Experienced in managing teams and building communities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-20 px-6 text-center relative z-10">
+    <h2 class="text-4xl font-bold mb-12">Let's Connect</h2>
+    <div class="flex flex-wrap justify-center gap-8">
+      <a href="https://discord.com/users/798525456281370625" target="_blank" class="card p-6 rounded-lg w-40 flex flex-col items-center hover:scale-105 transition">
+        <i class="fab fa-discord text-3xl mb-2 text-purple-400"></i>
+        <span>Discord</span>
+      </a>
+      <a href="https://www.roblox.com/users/nnotclix/profile" target="_blank" class="card p-6 rounded-lg w-40 flex flex-col items-center hover:scale-105 transition">
+        <img src="robloxx.png" alt="Roblox Logo" class="h-12 w-12 mb-2 transform -rotate-6">
+        <span>Roblox</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-6 text-center text-gray-500 text-sm relative z-10">
+    <p>© 2025 nnotclix.xyz • All rights reserved.</p>
+  </footer>
+
   <!-- JS -->
   <script>
     // Cursor Glow
@@ -149,24 +175,20 @@
       cursorGlow.style.top = e.clientY + 'px';
     });
 
-    // Dark/Light Toggle
-    const themeBtn = document.getElementById("theme-toggle");
-    themeBtn.addEventListener("click", () => {
-      document.documentElement.classList.toggle("dark");
-      themeBtn.innerHTML = document.documentElement.classList.contains("dark")
-        ? '<i class="fas fa-sun"></i>'
-        : '<i class="fas fa-moon"></i>';
-    });
-
-    // PRC API
+    // API
     const API_BASE = "https://api.policeroleplay.community/v1";
-    const API_KEY = "YOUR_SERVER_KEY"; // ⚠️ Hide this server-side in production
+    const API_KEY = "HuxKsayJDAbcZHbblYpZ-dBWZCyRkYLStQAqkoYphwfHeDQqjaCTvQwQPvZhU";
 
     async function fetchServerStats() {
       const statsDiv = document.getElementById("stats-content");
       const playerDiv = document.getElementById("player-list");
+
       try {
-        const serverRes = await fetch(`${API_BASE}/server`, { headers: { "server-key": API_KEY } });
+        // Fetch server info
+        const serverRes = await fetch(`${API_BASE}/server`, {
+          headers: { "server-key": API_KEY }
+        });
+        if (!serverRes.ok) throw new Error("Server API error");
         const server = await serverRes.json();
 
         statsDiv.innerHTML = `
@@ -175,46 +197,31 @@
           <p><span class="text-purple-400 font-semibold">Join Key:</span> ${server.JoinKey}</p>
         `;
 
-        const playerRes = await fetch(`${API_BASE}/server/players`, { headers: { "server-key": API_KEY } });
+        // Fetch players
+        const playerRes = await fetch(`${API_BASE}/server/players`, {
+          headers: { "server-key": API_KEY }
+        });
+        if (!playerRes.ok) throw new Error("Player API error");
         const players = await playerRes.json();
 
-        let playerList = players.map(p => `
-          <div class="p-2 border-b border-gray-700 flex justify-between">
-            <span class="text-purple-300 font-semibold">${p.Player.split(":")[0]}</span>
-            <span class="text-gray-400">${p.Team || "Civilian"}</span>
-          </div>
-        `).join("");
-
-        playerDiv.innerHTML = playerList;
-
-        // ✅ Filter players
-        document.getElementById("player-search").addEventListener("input", (e) => {
-          const q = e.target.value.toLowerCase();
-          const filtered = players.filter(p => p.Player.toLowerCase().includes(q));
-          playerDiv.innerHTML = filtered.length
-            ? filtered.map(p => `
-              <div class="p-2 border-b border-gray-700 flex justify-between">
-                <span class="text-purple-300 font-semibold">${p.Player.split(":")[0]}</span>
-                <span class="text-gray-400">${p.Team || "Civilian"}</span>
-              </div>`).join("")
-            : "<p class='text-gray-400 italic'>No players found.</p>";
-        });
-
+        if (players.length === 0) {
+          playerDiv.innerHTML = `<p class="text-gray-400 italic">No players online.</p>`;
+        } else {
+          playerDiv.innerHTML = players.map(p => `
+            <div class="p-2 border-b border-gray-700 flex justify-between">
+              <span class="text-purple-300 font-semibold">${p.Player.split(":")[0]}</span>
+              <span class="text-gray-400">${p.Team || "Civilian"}</span>
+            </div>
+          `).join("");
+        }
       } catch (err) {
         statsDiv.innerHTML = `<p class="text-red-400">Failed to load server stats.</p>`;
+        playerDiv.innerHTML = "";
       }
     }
-    fetchServerStats();
-    setInterval(fetchServerStats, 20000);
 
-    // ✅ Animate cards with Framer Motion
-    document.querySelectorAll("[data-motion]").forEach(el => {
-      framerMotion.motion(el, { 
-        initial: { opacity: 0, y: 40 }, 
-        animate: { opacity: 1, y: 0 }, 
-        transition: { duration: 0.8 }
-      });
-    });
+    fetchServerStats();
+    setInterval(fetchServerStats, 20000); // refresh every 20s
   </script>
 </body>
 </html>
