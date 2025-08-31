@@ -15,9 +15,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
+    ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-thumb {
       background: linear-gradient(to bottom, #9333ea, #3b82f6);
       border-radius: 3px;
@@ -201,14 +199,19 @@
       cursorGlow.style.top = e.clientY + 'px';
     });
 
-    // Load server stats from GitHub data folder
+    // ERLC API key (exposed on frontend)
+    const API_BASE = "https://api.policeroleplay.community/v1";
+    const API_KEY = "asRAEadXloixwMDxRYiS-dBWZCyRkYLStQAqkoYphwfHeDQqjaCTvQwQPvZhU";
+
     async function fetchServerStats() {
       const statsDiv = document.getElementById("stats-content");
       const playerDiv = document.getElementById("player-list");
 
       try {
-        // Fetch server.json
-        const serverRes = await fetch("data/server.json");
+        // Fetch server info
+        const serverRes = await fetch(`${API_BASE}/server`, {
+          headers: { "server-key": API_KEY }
+        });
         const server = await serverRes.json();
 
         statsDiv.innerHTML = `
@@ -217,8 +220,10 @@
           <p><span class="text-purple-400 font-semibold">Join Key:</span> ${server.JoinKey}</p>
         `;
 
-        // Fetch players.json
-        const playerRes = await fetch("data/players.json");
+        // Fetch players
+        const playerRes = await fetch(`${API_BASE}/server/players`, {
+          headers: { "server-key": API_KEY }
+        });
         const players = await playerRes.json();
 
         if (players.length === 0) {
@@ -238,7 +243,22 @@
     }
 
     fetchServerStats();
-    setInterval(fetchServerStats, 30000); // refresh every 30s (uses latest JSON commit)
+    setInterval(fetchServerStats, 20000); // refresh every 20s
   </script>
+
+  <!-- Block DevTools / Right-click -->
+  <script>
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'F12') e.preventDefault();
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') e.preventDefault();
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'j') e.preventDefault();
+      if (e.ctrlKey && e.key.toLowerCase() === 'u') e.preventDefault();
+    });
+
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
+  </script>
+
 </body>
 </html>
