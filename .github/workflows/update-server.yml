@@ -1,0 +1,27 @@
+name: Update ERLC Server Stats
+
+on:
+  schedule:
+    - cron: "*/5 * * * *" # runs every 5 minutes
+  workflow_dispatch:       # allows manual run
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Fetch Server Stats
+        run: |
+          mkdir -p data
+          curl -s -H "server-key: ${{ secrets.ERLC_API_KEY }}" https://api.policeroleplay.community/v1/server > data/server.json
+          curl -s -H "server-key: ${{ secrets.ERLC_API_KEY }}" https://api.policeroleplay.community/v1/server/players > data/players.json
+
+      - name: Commit & Push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/*.json
+          git commit -m "Update server stats [skip ci]" || echo "No changes"
+          git push
