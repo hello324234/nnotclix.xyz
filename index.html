@@ -201,20 +201,14 @@
       cursorGlow.style.top = e.clientY + 'px';
     });
 
-    // ERLC API
-    const API_BASE = "https://api.policeroleplay.community/v1";
-    const API_KEY = "HuxKsayJDAbcZHbblYpZ-dBWZCyRkYLStQAqkoYphwfHeDQqjaCTvQwQPvZhU";
-
+    // Load server stats from GitHub data folder
     async function fetchServerStats() {
       const statsDiv = document.getElementById("stats-content");
       const playerDiv = document.getElementById("player-list");
 
       try {
-        // Fetch server info
-        const serverRes = await fetch(`${API_BASE}/server`, {
-          headers: { "server-key": API_KEY }
-        });
-        if (!serverRes.ok) throw new Error("Server API error");
+        // Fetch server.json
+        const serverRes = await fetch("data/server.json");
         const server = await serverRes.json();
 
         statsDiv.innerHTML = `
@@ -223,11 +217,8 @@
           <p><span class="text-purple-400 font-semibold">Join Key:</span> ${server.JoinKey}</p>
         `;
 
-        // Fetch players
-        const playerRes = await fetch(`${API_BASE}/server/players`, {
-          headers: { "server-key": API_KEY }
-        });
-        if (!playerRes.ok) throw new Error("Player API error");
+        // Fetch players.json
+        const playerRes = await fetch("data/players.json");
         const players = await playerRes.json();
 
         if (players.length === 0) {
@@ -247,7 +238,7 @@
     }
 
     fetchServerStats();
-    setInterval(fetchServerStats, 20000); // refresh every 20s
+    setInterval(fetchServerStats, 30000); // refresh every 30s (uses latest JSON commit)
   </script>
 </body>
 </html>
