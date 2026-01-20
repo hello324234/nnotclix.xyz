@@ -16,28 +16,31 @@
             color: #ffffff; 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             overflow-x: hidden;
+            /* Slower, smoother scrolling feel */
+            scroll-behavior: smooth;
         }
         
         .hero-glow {
-            position: absolute;
-            top: 0; left: 50%; transform: translateX(-50%);
-            width: 100%; height: 900px;
-            background: radial-gradient(circle at center, rgba(220, 38, 38, 0.15) 0%, transparent 70%);
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at center, rgba(220, 38, 38, 0.12) 0%, transparent 70%);
             pointer-events: none; z-index: 0;
+            transition: background 0.3s ease;
         }
 
         .glass-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 32px;
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .glass-card:hover {
             background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(220, 38, 38, 0.4);
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(220, 38, 38, 0.5);
+            transform: translateY(-12px) scale(1.01);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
         }
 
         .btn-primary {
@@ -49,27 +52,39 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .btn-primary:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(220, 38, 38, 0.5);
+            transform: scale(1.08);
+            box-shadow: 0 0 40px rgba(220, 38, 38, 0.6);
+            background: #fdfdfd;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(2deg); }
         }
-        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-float { animation: float 8s ease-in-out infinite; }
 
         .project-img {
             filter: drop-shadow(0 0 20px rgba(220, 38, 38, 0.2));
-            transition: 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         .glass-card:hover .project-img {
-            filter: drop-shadow(0 0 40px rgba(220, 38, 38, 0.6));
-            transform: scale(1.08) rotate(2deg);
+            filter: drop-shadow(0 0 50px rgba(220, 38, 38, 0.7));
+            transform: scale(1.1);
+        }
+
+        /* Slow Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -77,73 +92,75 @@
 
     <div class="hero-glow" id="hero-glow"></div>
 
-    <main id="scroll-container">
+    <main>
         <header class="relative pt-48 pb-20 px-6 text-center overflow-hidden">
-            <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full text-[10px] font-bold tracking-widest uppercase mb-8">
-                <span class="text-red-500">
-                    <i class="fa-solid fa-chevron-right"></i>
-                </span>
-                2026 - nnotclix.
-            </div>
+            <div class="reveal active">
+                <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full text-[10px] font-bold tracking-widest uppercase mb-8">
+                    <span class="text-red-600">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </span>
+                    2026 - nnotclix.
+                </div>
 
-            <h1 class="text-7xl md:text-[10rem] font-black tracking-tighter mb-6 leading-[0.85] uppercase">
-                NOTCLIX<br><span class="text-red-600">DEV</span>
-            </h1>
-            
-            <p class="max-w-2xl mx-auto text-gray-400 text-lg md:text-xl font-medium mb-12">
-                Engineering high-performance community infrastructure and premium visual experiences.
-            </p>
+                <h1 class="text-7xl md:text-[10rem] font-black tracking-tighter mb-6 leading-[0.85] uppercase">
+                    NOTCLIX<br><span class="text-red-700">DEV</span>
+                </h1>
+                
+                <p class="max-w-2xl mx-auto text-gray-400 text-lg md:text-xl font-medium mb-12">
+                    An amazing server owner, bot developer, and professional alter dedicated to high-performance ecosystems.
+                </p>
 
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <button onclick="scrollToSection('work')" class="btn-primary flex items-center gap-3">
-                    View Portfolio <i class="fa-solid fa-arrow-down text-sm"></i>
-                </button>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                    <button onclick="document.getElementById('work').scrollIntoView({behavior: 'smooth'})" class="btn-primary flex items-center gap-3">
+                        Enter Portfolio <i class="fa-solid fa-arrow-down text-sm"></i>
+                    </button>
+                </div>
             </div>
         </header>
 
-        <section id="work" class="py-20 px-6 max-w-6xl mx-auto">
+        <section id="work" class="py-20 px-6 max-w-6xl mx-auto reveal">
             <div class="glass-card p-8 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12">
                 <div class="flex-1 text-center md:text-left">
-                    <span class="text-red-600 font-black text-xs uppercase tracking-widest italic">Flagship Community</span>
-                    <h2 class="text-4xl md:text-7xl font-black tracking-tighter mt-4 mb-6">ALASKA STATE</h2>
+                    <span class="text-red-600 font-black text-xs uppercase tracking-widest italic">Core Leadership</span>
+                    <h2 class="text-4xl md:text-7xl font-black tracking-tighter mt-4 mb-6 uppercase">ALASKA STATE</h2>
                     <p class="text-gray-400 text-lg mb-8 leading-relaxed">
-                        Scaling roleplay excellence with a community of <span class="text-white font-bold">2,000+ members</span>. 
-                        Focused on high-tier moderation and immersive ERLC gameplay.
+                        Leading one of the top ERLC communities with <span class="text-white font-bold">2,000+ active members</span>. 
+                        Focused on seamless bot integration and elite-tier roleplay management.
                     </p>
-                    <a href="https://discord.gg/alaskas" target="_blank" class="inline-flex items-center gap-2 text-white font-black uppercase text-xs tracking-widest border-b-2 border-red-600 pb-2 hover:gap-4 transition-all">
+                    <a href="https://discord.gg/alaskas" target="_blank" class="inline-flex items-center gap-2 text-white font-black uppercase text-xs tracking-widest border-b-2 border-red-700 pb-2 hover:gap-8 transition-all duration-700">
                         Join Community <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
                 <div class="flex-shrink-0 animate-float">
-                    <img src="alaska.webp" alt="Alaska Logo" class="w-48 h-48 md:w-80 md:h-80 project-img rounded-full border-4 border-red-600/20">
+                    <img src="alaska.webp" alt="Alaska Logo" class="w-48 h-48 md:w-80 md:h-80 project-img rounded-full border-4 border-red-900/20">
                 </div>
             </div>
         </section>
 
-        <section class="py-20 px-6 max-w-7xl mx-auto">
+        <section class="py-20 px-6 max-w-7xl mx-auto reveal">
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="glass-card p-10">
                     <div class="w-14 h-14 bg-red-600/10 rounded-2xl flex items-center justify-center mb-8 text-red-600 text-2xl">
-                        <i class="fa-solid fa-code-merge"></i>
+                        <i class="fa-solid fa-robot"></i>
                     </div>
-                    <h3 class="text-2xl font-extrabold mb-4 italic uppercase">Dev Solutions</h3>
-                    <p class="text-gray-500 leading-relaxed font-medium">Custom backend logic and technical infrastructure for growing Discord ecosystems.</p>
+                    <h3 class="text-2xl font-extrabold mb-4 italic uppercase">Bot Developer</h3>
+                    <p class="text-gray-500 leading-relaxed font-medium">Architecting custom automated solutions and integrations to streamline Discord management.</p>
                 </div>
 
                 <div class="glass-card p-10">
                     <div class="w-14 h-14 bg-red-600/10 rounded-2xl flex items-center justify-center mb-8 text-red-600 text-2xl">
-                        <i class="fa-solid fa-fire"></i>
+                        <i class="fa-solid fa-crown"></i>
                     </div>
-                    <h3 class="text-2xl font-extrabold mb-4 italic uppercase">Visual Assets</h3>
-                    <p class="text-gray-500 leading-relaxed font-medium">Aggressive GFX design tailored for the ERLC market to ensure your brand stands out.</p>
+                    <h3 class="text-2xl font-extrabold mb-4 italic uppercase">Server Owner</h3>
+                    <p class="text-gray-500 leading-relaxed font-medium">Proven track record of building, managing, and scaling high-traffic Roblox communities.</p>
                 </div>
 
                 <div class="glass-card p-10">
                     <div class="w-14 h-14 bg-red-600/10 rounded-2xl flex items-center justify-center mb-8 text-red-600 text-2xl">
-                        <i class="fa-solid fa-terminal"></i>
+                        <i class="fa-solid fa-user-plus"></i>
                     </div>
-                    <h3 class="text-2xl font-extrabold mb-4 italic uppercase">Growth Ops</h3>
-                    <p class="text-gray-500 leading-relaxed font-medium">Expert server alting and population seeding to drive front-page visibility.</p>
+                    <h3 class="text-2xl font-extrabold mb-4 italic uppercase">Professional Alter</h3>
+                    <p class="text-gray-500 leading-relaxed font-medium">Specializing in strategic server alting to boost visibility and player counts effectively.</p>
                 </div>
             </div>
         </section>
@@ -155,22 +172,16 @@
                         <span class="font-black text-4xl tracking-tighter italic">NOTCLIX.</span>
                     </div>
                     <p class="text-gray-500 max-w-sm font-medium leading-loose">
-                        Innovating infrastructure through Havok-tier scaling and custom software solutions.
+                        Amazing server owner and bot developer and alter.
                     </p>
                 </div>
                 
                 <div class="flex flex-col md:flex-row gap-12 text-center md:text-left">
                     <div>
-                        <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-white/30 mb-6">Contact</h4>
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-white/30 mb-6">Connect</h4>
                         <ul class="space-y-4 font-bold text-gray-500 text-sm">
-                            <li><a href="https://discord.com/users/798525456281370625" class="hover:text-red-500 transition-colors">Discord // nnotclix</a></li>
-                            <li><a href="https://www.roblox.com/users/10199054755/profile" class="hover:text-red-500 transition-colors">Roblox // nnotclix</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-white/30 mb-6">Network</h4>
-                        <ul class="space-y-4 font-bold text-gray-500 text-sm">
-                            <li><a href="https://discord.gg/alaskas" class="hover:text-red-500 transition-colors">Alaska State</a></li>
+                            <li><a href="https://discord.com/users/798525456281370625" class="hover:text-red-500 transition-all">Discord // nnotclix</a></li>
+                            <li><a href="https://www.roblox.com/users/10199054755/profile" class="hover:text-red-500 transition-all">Roblox // nnotclix</a></li>
                         </ul>
                     </div>
                 </div>
@@ -178,28 +189,16 @@
 
             <div class="max-w-7xl mx-auto pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
                 <p class="text-gray-600 text-[11px] font-bold uppercase tracking-widest">© 2026 nnotclix.xyz </p>
-                
-                <div class="flex items-center gap-6">
-                    <div class="flex items-center gap-2 bg-white/5 text-white/40 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
-                        <span class="w-1.5 h-1.5 bg-red-600 rounded-full animate-pulse"></span>
-                        <span>Systems Online</span>
-                    </div>
+                <div class="flex items-center gap-2 bg-white/5 text-white/40 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+                    <span class="w-1.5 h-1.5 bg-red-600 rounded-full animate-pulse"></span>
+                    <span>Systems Fully Operational</span>
                 </div>
             </div>
         </footer>
     </main>
 
     <script>
-        // Custom Smooth Scroll Logic for "Heavy" Feel
-        function scrollToSection(id) {
-            const element = document.getElementById(id);
-            window.scrollTo({
-                top: element.offsetTop,
-                behavior: 'smooth'
-            });
-        }
-
-        // Slow Cursor Follower
+        // Smooth Cursor Follower Logic
         const glow = document.getElementById('hero-glow');
         let curX = 0, curY = 0;
         let tgX = 0, tgY = 0;
@@ -210,15 +209,26 @@
         });
 
         function updateGlow() {
-            // Lower decimal (0.05) makes it move slower/smoother
-            curX += (tgX - curX) * 0.05;
-            curY += (tgY - curY) * 0.05;
-            glow.style.background = `radial-gradient(circle at ${curX}px ${curY}px, rgba(220, 38, 38, 0.12) 0%, transparent 70%)`;
+            // Very slow lerp for cinematic feel (0.03)
+            curX += (tgX - curX) * 0.03;
+            curY += (tgY - curY) * 0.03;
+            glow.style.background = `radial-gradient(circle at ${curX}px ${curY}px, rgba(220, 38, 38, 0.1) 0%, transparent 70%)`;
             requestAnimationFrame(updateGlow);
         }
         updateGlow();
 
-        // Anti-Inspect
+        // Slow Reveal Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Security
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.onkeydown = function(e) {
             if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0))) return false;
