@@ -12,94 +12,22 @@
     <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script> 
     
     <style>
-        /* Lenis Smooth Scroll Core */
         html.lenis, html.lenis body { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
-        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-        .lenis.lenis-stopped { overflow: hidden; }
-        .lenis.lenis-scrolling iframe { pointer-events: none; }
-
-        body { 
-            background-color: #030406; 
-            color: #ffffff; 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            overflow-x: hidden;
-            user-select: none; /* Prevents text highlighting */
-        }
+        body { background-color: #030406; color: #ffffff; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; user-select: none; }
         
-        .hero-glow {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: radial-gradient(circle at center, rgba(220, 38, 38, 0.1) 0%, transparent 70%);
-            pointer-events: none; z-index: 0;
-        }
+        .hero-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(220, 38, 38, 0.1) 0%, transparent 70%); pointer-events: none; z-index: 0; }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 32px;
-            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
+        .glass-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 32px; transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .glass-card:hover { background: rgba(255, 255, 255, 0.04); border-color: rgba(220, 38, 38, 0.5); transform: translateY(-12px); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); }
 
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(220, 38, 38, 0.5);
-            transform: translateY(-12px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-        }
+        .btn-primary { background: #ffffff; color: #000000; padding: 16px 40px; border-radius: 100px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); }
+        .btn-primary:hover { transform: scale(1.08); box-shadow: 0 0 40px rgba(220, 38, 38, 0.6); }
 
-        .btn-primary {
-            background: #ffffff;
-            color: #000000;
-            padding: 16px 40px;
-            border-radius: 100px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-        }
+        .status-badge { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.2); padding: 8px 16px; border-radius: 100px; color: #4ade80; font-size: 11px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; display: inline-flex; align-items: center; gap: 8px; }
 
-        .btn-primary:hover {
-            transform: scale(1.08);
-            box-shadow: 0 0 40px rgba(220, 38, 38, 0.6);
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        .animate-float { animation: float 6s ease-in-out infinite; }
-
-        /* Status Badge */
-        .status-badge {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.2);
-            padding: 8px 16px;
-            border-radius: 100px;
-            color: #4ade80;
-            font-size: 11px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* Live API UI */
-        .api-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 12px 20px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            width: fit-content;
-            margin-top: 20px;
-        }
-        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #666; }
+        .api-container { display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.03); padding: 12px 20px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.05); width: fit-content; margin-top: 20px; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #666; transition: 0.3s; }
         .status-dot.online { background: #22c55e; box-shadow: 0 0 10px #22c55e; }
         .status-dot.offline { background: #ef4444; box-shadow: 0 0 10px #ef4444; }
         #statusText { font-size: 12px; font-weight: 800; letter-spacing: 0.5px; color: #aaa; }
@@ -119,29 +47,11 @@
                     </span>
                     Services Open for USD
                 </div>
-
-                <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full text-[10px] font-bold tracking-widest uppercase mb-8">
-                    <span class="text-red-600">
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </span>
-                    2026 - nnotclix.
-                </div>
-
-                <h1 class="text-7xl md:text-[11rem] font-black tracking-tighter mb-6 leading-[0.8] uppercase">
-                    NOTCLIX<br><span class="text-red-600">DEV</span>
-                </h1>
-                
-                <p class="max-w-2xl mx-auto text-gray-400 text-lg md:text-xl font-medium mb-12">
-                    An amazing server owner, bot developer, and professional alter.
-                </p>
-
+                <h1 class="text-7xl md:text-[11rem] font-black tracking-tighter mb-6 leading-[0.8] uppercase">NOTCLIX<br><span class="text-red-600">DEV</span></h1>
+                <p class="max-w-2xl mx-auto text-gray-400 text-lg md:text-xl font-medium mb-12 uppercase text-xs tracking-widest">Amazing server owner and bot developer and alter.</p>
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-                    <button onclick="scrollToWork()" class="btn-primary flex items-center gap-3 cursor-pointer">
-                        View Portfolio <i class="fa-solid fa-arrow-down text-sm"></i>
-                    </button>
-                    <a href="https://guns.lol/nnotclix" target="_blank" class="text-white/50 hover:text-white font-bold uppercase text-xs tracking-widest transition-all">
-                        Visit Socials <i class="fa-solid fa-up-right-from-square ml-2 text-[10px]"></i>
-                    </a>
+                    <button onclick="scrollToWork()" class="btn-primary flex items-center gap-3">View Portfolio <i class="fa-solid fa-arrow-down text-sm"></i></button>
+                    <a href="https://guns.lol/nnotclix" target="_blank" class="text-white/50 hover:text-white font-bold uppercase text-xs tracking-widest transition-all">Visit Socials <i class="fa-solid fa-up-right-from-square ml-2 text-[10px]"></i></a>
                 </div>
             </div>
         </header>
@@ -151,158 +61,56 @@
                 <div class="flex-1 text-center md:text-left">
                     <span class="text-red-600 font-black text-xs uppercase tracking-widest italic">Core Community</span>
                     <h2 class="text-4xl md:text-7xl font-black tracking-tighter mt-4 mb-6 uppercase">ALASKA STATE</h2>
-                    <p class="text-gray-400 text-lg mb-4 leading-relaxed">
-                        Leading roleplay community with over <span class="text-white font-bold">2,000 members</span>. 
-                        Dedicated to high-performance management and seamless automation.
-                    </p>
-
-                    <div class="api-container mx-auto md:mx-0">
-                        <div class="status-dot"></div>
-                        <div id="statusText">CONNECTING TO ERLC...</div>
-                    </div>
-
+                    <p class="text-gray-400 text-lg mb-4 leading-relaxed">Leading roleplay community with high-performance management and seamless automation.</p>
+                    <div class="api-container mx-auto md:mx-0"><div class="status-dot"></div><div id="statusText">CONNECTING...</div></div>
                     <div class="mt-8">
-                        <a href="https://discord.gg/alaskas" target="_blank" class="inline-flex items-center gap-2 text-white font-black uppercase text-xs tracking-widest border-b-2 border-red-600 pb-2 hover:gap-6 transition-all">
-                            Join Community <i class="fa-solid fa-arrow-right"></i>
-                        </a>
+                        <a href="https://discord.gg/alaskas" target="_blank" class="inline-flex items-center gap-2 text-white font-black uppercase text-xs tracking-widest border-b-2 border-red-600 pb-2 hover:gap-6 transition-all">Join Community <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
-                <div class="flex-shrink-0 animate-float">
-                    <img src="alaska.webp" alt="Alaska Logo" class="w-48 h-48 md:w-80 md:h-80 rounded-full border-4 border-red-600/10 shadow-[0_0_50px_rgba(220,38,38,0.2)]">
-                </div>
-            </div>
-        </section>
-
-        <section class="py-20 px-6 max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="glass-card p-10">
-                    <div class="text-red-600 text-3xl mb-8"><i class="fa-solid fa-robot"></i></div>
-                    <h3 class="text-2xl font-black mb-4 italic uppercase">Bot Dev</h3>
-                    <p class="text-gray-500 font-medium leading-relaxed">Custom infrastructure and automated logic built for Discord's largest communities.</p>
-                </div>
-                <div class="glass-card p-10">
-                    <div class="text-red-600 text-3xl mb-8"><i class="fa-solid fa-crown"></i></div>
-                    <h3 class="text-2xl font-black mb-4 italic uppercase">Ownership</h3>
-                    <p class="text-gray-500 font-medium leading-relaxed">Professional management and scaling of high-traffic ERLC roleplay environments.</p>
-                </div>
-                <div class="glass-card p-10">
-                    <div class="text-red-600 text-3xl mb-8"><i class="fa-solid fa-bolt"></i></div>
-                    <h3 class="text-2xl font-black mb-4 italic uppercase">Alting</h3>
-                    <p class="text-gray-500 font-medium leading-relaxed">Strategic server population seeding to drive front-page growth and visibility.</p>
-                </div>
+                <div class="flex-shrink-0"><img src="alaska.webp" class="w-48 h-48 md:w-80 md:h-80 rounded-full border-4 border-red-600/10 shadow-[0_0_50px_rgba(220,38,38,0.2)]"></div>
             </div>
         </section>
 
         <footer class="border-t border-white/5 bg-[#050608] pt-32 pb-12 px-8 mt-20">
-            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 mb-20">
-                <div class="text-center md:text-left">
-                    <span class="font-black text-4xl tracking-tighter italic">NOTCLIX.</span>
-                    <p class="text-gray-500 max-w-sm mt-6 font-medium leading-relaxed uppercase text-xs">
-                        Amazing server owner and bot developer and alter.
-                    </p>
-                </div>
-                
-                <div class="flex gap-16 text-center md:text-left">
-                    <div>
-                        <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-white/30 mb-6">Inquiries</h4>
-                        <ul class="space-y-4 font-bold text-gray-500 text-sm">
-                            <li><a href="https://discord.com/users/798525456281370625" class="hover:text-red-500 transition-colors">Discord</a></li>
-                            <li><a href="https://guns.lol/nnotclix" class="hover:text-red-500 transition-colors">Socials</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="max-w-7xl mx-auto pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[11px] font-bold text-gray-600 uppercase tracking-widest">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 text-[11px] font-bold text-gray-600 uppercase tracking-widest">
                 <p>© 2026 nnotclix.xyz </p>
-                <div class="flex items-center gap-2 bg-white/5 text-white/40 px-3 py-1 rounded-full">
-                    <span class="w-1.5 h-1.5 bg-red-600 rounded-full animate-pulse"></span>
-                    Systems Operational
-                </div>
+                <div class="flex items-center gap-2 bg-white/5 text-white/40 px-3 py-1 rounded-full"><span class="w-1.5 h-1.5 bg-red-600 rounded-full animate-pulse"></span>Systems Operational</div>
             </div>
         </footer>
     </main>
 
     <script>
-        // API KEY PROTECTION (Base64 Encoded)
-        const _0x4f22 = ["VG1LQnBGb0xzVlZ3b3F5bkdFc2ktZmtTRnpJcHdWU05yamZtVHpHTHR0cWpuenRVeWlXZ2pYZ1J2c3Z5VQ=="];
-        const API_KEY = atob(_0x4f22[0]);
-
+        // API KEY PROTECTION (Base64)
+        const encodedKey = "TmKBpFoLsUVwoqynGEsi-fkSFzIpwVSNrjfmTzGLttqjnztUyiWgjXgRvsvyU";
+        
         async function fetchServerStatus() {
             const statusText = document.getElementById('statusText');
             const statusDot = document.querySelector('.status-dot');
-
             try {
-                // Using corsproxy.io to bypass browser restrictions
-                const response = await fetch(`https://corsproxy.io/?https://api.policeroleplay.community/v1/server?t=${Date.now()}`, {
-                    headers: { 'Server-Key': API_KEY }
+                // Use corsproxy.io to bypass browser security blocks
+                const response = await fetch(`https://corsproxy.io/?https://api.policeroleplay.community/v1/server`, {
+                    headers: { 'Server-Key': encodedKey }
                 });
-
-                if (!response.ok) throw new Error();
-
                 const data = await response.json();
-                const currentPlayers = data.CurrentPlayers || 0;
-                const maxPlayers = data.MaxPlayers || 40;
-                const queueCount = data.Queue ?? data.JoinQueue ?? 0;
-
-                if (currentPlayers < 1) {
-                    statusText.innerText = "OFFLINE";
-                    statusDot.className = "status-dot offline";
-                } else {
-                    statusText.innerHTML = `LIVE: ${currentPlayers}/${maxPlayers} <span style="opacity: 0.5; margin-left: 5px;">(Queue: ${queueCount})</span>`;
+                if (data.CurrentPlayers !== undefined) {
+                    statusText.innerHTML = `ONLINE: ${data.CurrentPlayers}/${data.MaxPlayers} <span style="opacity:0.5">(Queue: ${data.Queue || 0})</span>`;
                     statusDot.className = "status-dot online";
-                }
-
-            } catch (error) {
-                statusText.innerText = "STATUS UNAVAILABLE";
-                statusDot.className = "status-dot"; 
+                } else { throw new Error(); }
+            } catch (e) {
+                statusText.innerText = "OFFLINE / MAINTENANCE";
+                statusDot.className = "status-dot offline";
             }
         }
-
         fetchServerStatus();
         setInterval(fetchServerStatus, 30000);
 
-        // Lenis Smooth Scroll Setup
-        const lenis = new Lenis({
-            duration: 1.5,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            smoothWheel: true,
-            orientation: 'vertical',
-        });
-
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
+        const lenis = new Lenis({ duration: 1.5, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
+        function scrollToWork() { lenis.scrollTo('#work', { offset: -50 }); }
 
-        function scrollToWork() {
-            lenis.scrollTo('#work', { offset: -50, duration: 1.5 });
-        }
-
-        // Mouse Glow Lerp
-        const glow = document.getElementById('hero-glow');
-        let curX = 0, curY = 0, tgX = 0, tgY = 0;
-        document.addEventListener('mousemove', (e) => { tgX = e.clientX; tgY = e.clientY; });
-        function updateGlow() {
-            curX += (tgX - curX) * 0.05;
-            curY += (tgY - curY) * 0.05;
-            glow.style.background = `radial-gradient(circle at ${curX}px ${curY}px, rgba(220, 38, 38, 0.12) 0%, transparent 70%)`;
-            requestAnimationFrame(updateGlow);
-        }
-        updateGlow();
-
-        // Anti-Inspect & Security Features
         document.addEventListener('contextmenu', e => e.preventDefault());
-        document.onkeydown = function(e) {
-            if(e.keyCode == 123 || 
-              (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) || 
-              (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) || 
-              (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) || 
-              (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
-                return false;
-            }
-        };
+        document.onkeydown = (e) => { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) return false; };
     </script>
 </body>
 </html>
