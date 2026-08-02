@@ -196,24 +196,13 @@
 
     <script>
         // API KEY PROTECTION (Base64)
-        const encodedKey = "TmKBpFoLsUVwoqynGEsi-fkSFzIpwVSNrjfmTzGLttqjnztUyiWgjXgRvsvyU";
-
+        // Server status is intentionally disabled until it can be fetched through a
+        // server-side proxy. Browser bundles cannot keep API keys secret.
         async function fetchServerStatus() {
             const statusText = document.getElementById('statusText');
             const statusDot = document.querySelector('.status-dot');
-            try {
-                const response = await fetch(`https://corsproxy.io/?https://api.policeroleplay.community/v1/server`, {
-                    headers: { 'Server-Key': encodedKey }
-                });
-                const data = await response.json();
-                if (data.CurrentPlayers !== undefined) {
-                    statusText.innerHTML = `ONLINE: ${data.CurrentPlayers}/${data.MaxPlayers} <span style="opacity:0.5">(Queue: ${data.Queue || 0})</span>`;
-                    statusDot.className = "status-dot online";
-                } else { throw new Error(); }
-            } catch (e) {
-                statusText.innerText = "OFFLINE / MAINTENANCE";
-                statusDot.className = "status-dot offline";
-            }
+            statusText.innerText = "STATUS TEMPORARILY UNAVAILABLE";
+            statusDot.className = "status-dot";
         }
         fetchServerStatus();
         setInterval(fetchServerStatus, 30000);
